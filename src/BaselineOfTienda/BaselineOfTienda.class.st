@@ -8,9 +8,16 @@ Class {
 BaselineOfTienda >> baseline: spec [
 	<baseline>
 	spec
-		for: #common
+		for: #pharo
 		do: [
 			"Packages"
 			spec
-				package: 'TiendaAmazingShop'].
+				package: 'TiendaAmazingShop';
+				package: 'recursos']
+]
+
+{ #category : #accessing }
+BaselineOfTienda >> projectClass [
+
+	^ MetacelloCypressBaselineProject
 ]
