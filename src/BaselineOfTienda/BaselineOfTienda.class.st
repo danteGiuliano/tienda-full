@@ -8,11 +8,11 @@ Class {
 BaselineOfTienda >> baseline: spec [
 	<baseline>
 	spec
-		for: #pharo
+		for: #common
 		do: [
 			"Packages"
 			spec
-				package: 'TiendaAmazingShop']
+				package: 'TiendaAmazingShop'].
 ]
 
 { #category : #accessing }
