@@ -12,5 +12,5 @@ BaselineOfTienda >> baseline: spec [
 		do: [
 			"Packages"
 			spec
-				package: 'BaselineOfTienda'].
+				package: 'TiendaAmazingShop'].
 ]
