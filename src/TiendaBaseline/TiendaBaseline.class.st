@@ -1,11 +1,11 @@
 Class {
-	#name : #BaselineOfTiendaAmazingShop,
+	#name : #TiendaBaseline,
 	#superclass : #BaselineOf,
 	#category : #TiendaBaseline
 }
 
 { #category : #baselines }
-BaselineOfTiendaAmazingShop >> baseline: spec [
+TiendaBaseline >> baseline: spec [
 	<baseline>
 	spec
 		for: #common
