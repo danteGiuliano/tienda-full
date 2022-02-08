@@ -12,8 +12,7 @@ BaselineOfTienda >> baseline: spec [
 		do: [
 			"Packages"
 			spec
-				package: 'TiendaAmazingShop';
-				package: 'recursos']
+				package: 'TiendaAmazingShop']
 ]
 
 { #category : #accessing }
