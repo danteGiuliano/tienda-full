@@ -14,3 +14,9 @@ BaselineOfTienda >> baseline: spec [
 			spec
 				package: 'TiendaAmazingShop']
 ]
+
+{ #category : #accessing }
+BaselineOfTienda >> projectClass [
+
+	^ MetacelloCypressBaselineProject
+]
