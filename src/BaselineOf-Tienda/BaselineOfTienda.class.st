@@ -8,7 +8,7 @@ Class {
 BaselineOfTienda >> baseline: spec [
 	<baseline>
 	spec
-		for: #common
+		for: #pharo
 		do: [
 			"Packages"
 			spec
