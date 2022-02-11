@@ -9,7 +9,7 @@ Class {
 		'collecionPago',
 		'collecionBoton'
 	],
-	#category : #'TiendaAmazingShop-services'
+	#category : #'TiendaAmazingShop-components tienda'
 }
 
 { #category : #operations }

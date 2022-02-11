@@ -80,6 +80,11 @@ suscripcionBase :=unaSuscripcionBase.
 ]
 
 { #category : #'as yet unclassified' }
+Promocion >> descuento [
+^descuento asNumber.
+]
+
+{ #category : #'as yet unclassified' }
 Promocion >> getCantidadArticulos [
 ^cantidad asNumber
 ]

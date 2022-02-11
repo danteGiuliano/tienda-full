@@ -7,7 +7,8 @@ Class {
 		'fechaFin',
 		'nombreSuscripcion',
 		'contenidosComprados',
-		'promocion'
+		'promocion',
+		'suscripto'
 	],
 	#category : #'TiendaAmazingShop-model'
 }
@@ -62,15 +63,8 @@ SuscripcionComprada >> añadirLista:unaLista [
 listaDescuento :=unaLista.
 fechaInicio :=Date today yyyymmdd.
 fechaFin :=Date today onNextMonth  yyyymmdd.
+suscripto :=true.
 
-]
-
-{ #category : #'as yet unclassified' }
-SuscripcionComprada >> añadirListaMySQL:unaLista yFechaInicio:unaFechaInicio yFechaFIN:unaFechaFin deNombre:unNombre [
-listaDescuento :=unaLista.
-fechaInicio :=unaFechaInicio.
-fechaFin :=unaFechaFin.
-nombreSuscripcion :=unNombre.
 ]
 
 { #category : #'as yet unclassified' }
@@ -80,6 +74,7 @@ fechaInicio :=unaFechaInicio.
 fechaFin :=unaFechaFin.
 nombreSuscripcion :=unNombre.
 contenidosComprados :=cantidad.
+suscripto :=true.
 ]
 
 { #category : #'as yet unclassified' }
@@ -102,6 +97,15 @@ contenidosComprados :=0.
 { #category : #dataTable }
 SuscripcionComprada >> contenidoComprado [
 contenidosComprados :=contenidosComprados +1.
+]
+
+{ #category : #dataTable }
+SuscripcionComprada >> descuento [
+promocion ifNil:[
+	^1 asNumber .
+	  ]ifNotNil:[
+	promocion descuento asNumber.
+	]
 ]
 
 { #category : #'as yet unclassified' }
@@ -161,7 +165,13 @@ SuscripcionComprada >> promocionAplicable:unaCantidad [
 ]
 
 { #category : #'as yet unclassified' }
+SuscripcionComprada >> sinSuscripcion [
+^(suscripto not).
+]
+
+{ #category : #'as yet unclassified' }
 SuscripcionComprada >> sinSuscripcionActiva [
+suscripto :=false.
 nombreSuscripcion :='Sin Suscripcion'.
 fechaInicio:=Date today.
 fechaFin:='Usuario sin suscripcion'.

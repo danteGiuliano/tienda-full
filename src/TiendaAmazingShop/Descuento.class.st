@@ -130,6 +130,11 @@ Descuento >> nombreRow: rowIndex [
 ]
 
 { #category : #'as yet unclassified' }
+Descuento >> obtenerDescuento:selecion [
+^diccionarioDescuento at:selecion.
+]
+
+{ #category : #'as yet unclassified' }
 Descuento >> peliculaRow: rowIndex [
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getPelicula asStringMorph;

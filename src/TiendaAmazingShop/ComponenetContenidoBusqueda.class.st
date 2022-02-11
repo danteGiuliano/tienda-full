@@ -1,3 +1,6 @@
+"
+self call openInHand.
+"
 Class {
 	#name : #ComponenetContenidoBusqueda,
 	#superclass : #BorderedMorph,

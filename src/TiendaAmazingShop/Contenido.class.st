@@ -68,3 +68,15 @@ fecha :=Date today yyyymmdd.
 Contenido >> precio [
 ^precio.
 ]
+
+{ #category : #accessing }
+Contenido >> precioDescuento:unaSuscripcion [
+|valorSuscripcion |
+(unaSuscripcion sinSuscripcion )ifFalse:[
+	valorSuscripcion :=Control modelFuntionReturn:[:h| h obtainSuscripcion:unaSuscripcion getTipo].
+^precio * (((valorSuscripcion obtenerDescuento: ( self class asString) )* unaSuscripcion descuento)/precio).
+	]
+ifTrue:[
+	^precio.
+	]
+]

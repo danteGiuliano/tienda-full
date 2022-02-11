@@ -59,7 +59,7 @@ fonde right:self right.
 fonde color:Color white.
 "Gif"
 
-Helper addCenterMorph:(MorphGIF gifFromString:'recursos/fondo-login.gif') in:fonde.
+Helper addCenterMorph:(MorphGIF gifFromString:'pharo-local/iceberg/danteGiuliano/tienda-full/src/recursos/fondo-login.gif') in:fonde.
 
 
 ]
