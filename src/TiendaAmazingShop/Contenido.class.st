@@ -46,9 +46,14 @@ Contenido >> fecha [
 ^fecha asString.
 ]
 
-{ #category : #accessing }
+{ #category : #getterVisual }
 Contenido >> getData [
 ^('NOMBRE: ',nombre ,'\PRECIO:  ',(precio asString),'\Fecha:  ',fecha asString ,'\TIPO: ',(self class)asString) withCRs.
+]
+
+{ #category : #accessing }
+Contenido >> getIDCategoria [
+^self className.
 ]
 
 { #category : #accessing }
@@ -65,19 +70,13 @@ fecha :=Date today yyyymmdd.
 ]
 
 { #category : #accessing }
-Contenido >> precio [
-^precio.
+Contenido >> obtenerPrecio:unDescuento [
+|valor|
+valor:=precio asNumber.
+^ valor- ((valor*unDescuento)/100). 
 ]
 
 { #category : #accessing }
-Contenido >> precioDescuento:unaSuscripcion [
-|valorSuscripcion valorPrecio|
-valorPrecio :=precio asNumber.
-(unaSuscripcion sinSuscripcion )ifFalse:[ 
-	|descuento|
-	valorSuscripcion :=Control modelFuntionReturn:[:h| h obtainSuscripcion:unaSuscripcion getTipo].
-	descuento :=(valorSuscripcion obtenerDescuento: ( self class asString))asNumber.
-valorPrecio := (valorPrecio*descuento)/100 - valorPrecio .
-	].
-^valorPrecio
+Contenido >> precio [
+^precio.
 ]

@@ -36,19 +36,6 @@ temp añadirContenidoMySQL:(DataBase getContenidosComprados:dni)rows.
 ]
 
 { #category : #'as yet unclassified' }
-Cliente >> SuscripcionActiva [
-|tipo|
-tipo :='Nil'.
-listaDeSuscripcion isNotEmpty ifTrue:[
-|suscripcion|
-suscripcion :=listaDeSuscripcion at:1.
-suscripcion fechaVigente ifTrue:[
-	tipo :=suscripcion].
-	].
-^tipo.
-]
-
-{ #category : #'as yet unclassified' }
 Cliente >> addSuscription:aSuscription [.
 listaDeSuscripcion add:aSuscription.
 ]
@@ -107,7 +94,7 @@ Cliente >> añadirPromocion:unaPromocion [
 (listaDeSuscripcion at:1)añadirPromocion:unaPromocion.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Cliente >> cellColumn: column row:rowIndex [
 column id = '#' ifTrue: [ ^ FTCellMorph new addMorph: rowIndex asMorph ].
 column id = 'nombre' ifTrue: [ ^ self nameRow: rowIndex ].
@@ -118,6 +105,16 @@ column id= 'email' ifTrue: [ ^self emailRow:rowIndex ].
 { #category : #'as yet unclassified' }
 Cliente >> colleccionPago [
 ^colPago.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> compraContenido:unContenido [
+|unPrecio|
+unPrecio := self obtenerPrecioContenido:unContenido.
+unPrecio == -1 ifFalse:[
+	colPago add:(Pago crearPago:unPrecio deItem:unContenido   ySuscripcion:self getSuscripcionActiva )
+	]
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -141,46 +138,46 @@ dni:=unDni.
 email:=unEmail
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Cliente >> dniRow:rowIndex [
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getDni asStringMorph;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Cliente >> emailRow: rowIndex [
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getEmail asStringMorph;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Cliente >> equals:unDni [
 ^((dni asString)=unDni ).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Cliente >> getData [
 ^('NOMBRE: ',nombre ,'\DNI:  ',(dni asString),'\EMAIL:  ',email) withCRs.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #getters }
 Cliente >> getDni [
 ^dni.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #getters }
 Cliente >> getEmail [
 ^email.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #getters }
 Cliente >> getNombre [
 ^nombre.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #getters }
 Cliente >> getSuscripcionActiva [
 |suscripcion sinDescuento temp|
 sinDescuento :=Dictionary  newFrom:{'Aplicacion'->0.'Pelicula'->0.'Libro'->0}.
@@ -193,19 +190,19 @@ listaDeSuscripcion isEmpty ifTrue:[
 ^temp.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #getters }
 Cliente >> getSuscripciones_Compradas [
 ^listaDeSuscripcion.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Cliente >> nameRow: rowIndex [
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getNombre asStringMorph;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Cliente >> newDataSourceMatching: aFTFilter [
 	| newElements |
 	newElements := Array withAll: (elements select: [ :each | 
@@ -213,7 +210,7 @@ Cliente >> newDataSourceMatching: aFTFilter [
 	^ self class new elements: newElements.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Cliente >> obtenerDataCompra:keyName [
 | pago data|
 data :=nil.
@@ -223,6 +220,20 @@ pago isNotEmpty ifTrue:[
 	data:=DataCompra crearData:nombre  enFecha:pago getFecha  yTipo:pago getSuscripcion.
 	].
 ^data.
+]
+
+{ #category : #'as yet unclassified' }
+Cliente >> obtenerPrecioContenido:unContenido [
+|precio|
+precio :=-1.
+(self poseeContenido:unContenido )ifFalse:[
+	|suscripcion categoria descuento|
+	suscripcion := self getSuscripcionActiva.
+	categoria := unContenido getIDCategoria.
+	descuento := suscripcion calcularDescuento:categoria.
+	precio := unContenido obtenerPrecio:descuento asNumber.
+	].
+^precio.
 ]
 
 { #category : #'as yet unclassified' }
@@ -247,7 +258,7 @@ suscripcionComprada :=listaDeSuscripcion at:1.
 ^(suscripcionComprada  promocionAplicable:unaCantidadArticulos).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Cliente >> toString:aCliente [
 ^(aCliente getDni) asString.
 ]

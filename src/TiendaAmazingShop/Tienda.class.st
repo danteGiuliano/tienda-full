@@ -196,12 +196,6 @@ coleccionPromos :=OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }
-Tienda >> obtainSuscripcion:aSelection [
-^coleccionSuscripciones detect:[:suscription| suscription equals:aSelection]ifNone:[nil].
-
-]
-
-{ #category : #'as yet unclassified' }
 Tienda >> searchContenido:unNombre [
 ^colectionContenidos  detect:[:contenido|contenido equals:unNombre]ifNone:[nil].
 

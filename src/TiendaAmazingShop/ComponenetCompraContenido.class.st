@@ -54,11 +54,12 @@ ComponenetCompraContenido >> logic [
 					data := data , cliente getData.
 					data := (data , '\ \ INFORMACION DE CONTENIDO-----  \') withCRs.
 					data := data , contenido getData.
+					data := data, ' PRECIO DESCUENTO: ',(cliente obtenerPrecioContenido:contenido)asString.
 					text setText: data ] ].
 	comprar
 		mouseAction: [ cliente isNotNil & contenido isNotNil
 				ifTrue: [ DataBase registerCompra_contenido: contenido paraCliente: cliente.
-					cliente añadirContenido:contenido.
+					cliente compraContenido: contenido.
 					Control modelFuntion:[:h| h actualizarCliente: cliente].
 					text setText:''.
 					text setText: 'COMPRA CON EXITO ...' ] ]

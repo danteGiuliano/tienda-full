@@ -82,6 +82,11 @@ SuscripcionComprada >> añadirPromocion:unaPromocion [
 promocion :=unaPromocion.
 ]
 
+{ #category : #'as yet unclassified' }
+SuscripcionComprada >> calcularDescuento:unId [
+^listaDescuento obtenerDescuento:unId.
+]
+
 { #category : #dataTable }
 SuscripcionComprada >> cellColumn: column row:rowIndex [
 column id = 'Tipo' ifTrue: [ ^ self tipoRow: rowIndex ].
@@ -135,7 +140,7 @@ SuscripcionComprada >> inicioRow:rowIndex [
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #dataTable }
 SuscripcionComprada >> keyValue [
 ^nombreSuscripcion
 ]

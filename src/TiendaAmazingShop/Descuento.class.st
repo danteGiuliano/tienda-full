@@ -45,14 +45,14 @@ diccionary :=Dictionary new.
 ^arrayDictiionary.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Descuento >> aplicacionRow: rowIndex [
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getAplication asStringMorph;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Descuento >> cellColumn: column row:rowIndex [
 column id = 'Nombre' ifTrue: [ ^self nombreRow: rowIndex].
 column id= 'Descuento Libro' ifTrue: [ ^self libroRow:rowIndex ].
@@ -67,36 +67,29 @@ Descuento >> equals:aName [
 ^nombre ==aName.
 ]
 
-{ #category : #'as yet unclassified' }
-Descuento >> fechaFinalRow:rowIndex [ 
-	^ FTCellMorph new  
-		addMorphBack: (self elementAt: rowIndex) getFechaExpira asStringMorph;
-		yourself
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Descuento >> fechaIncioRow:rowIndex [ 
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getFechaInicio asStringMorph;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Descuento >> getAplication [
 ^(diccionarioDescuento at:'Aplicacion')asString,' %'.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Descuento >> getLibro [
 ^(diccionarioDescuento at:'Libro')asString,' %'
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Descuento >> getNombre [
 ^nombre asString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Descuento >> getPelicula [
 ^(diccionarioDescuento at:'Pelicula')asString,' %'
 ]
@@ -107,14 +100,14 @@ nombre:=unNombre.
 diccionarioDescuento :=aDiccionary.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Descuento >> libroRow:rowIndex [ 
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getLibro asStringMorph;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Descuento >> newDataSourceMatching: aFTFilter [
 	| newElements |
 	newElements := Array withAll: (elements select: [ :each | 
@@ -122,7 +115,7 @@ Descuento >> newDataSourceMatching: aFTFilter [
 	^ self class new elements: newElements.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Descuento >> nombreRow: rowIndex [
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getNombre asStringMorph;
@@ -134,14 +127,14 @@ Descuento >> obtenerDescuento:selecion [
 ^diccionarioDescuento at:selecion.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Descuento >> peliculaRow: rowIndex [
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getPelicula asStringMorph;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Descuento >> toString:aSuscription [
 ^aSuscription getNombre.
 ]

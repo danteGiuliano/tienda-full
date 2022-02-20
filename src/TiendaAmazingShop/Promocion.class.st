@@ -32,35 +32,35 @@ fecha_fin :=(temp at:8)asDate.
 nombre_suscripcion.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Promocion >> CantidadArticulos:rowIndex [ 
 ^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getCantidadArticulos asStringMorph;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Promocion >> DescuentoPromocion:rowIndex [
 ^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getDescuentoPromocion asStringMorph;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Promocion >> NuevaSuscripcion:rowIndex [
 ^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getNuevaSuscripcion asStringMorph;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Promocion >> SuscripcionRow: rowIndex [
 ^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getSuscripcion asStringMorph;
 		yourself
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Promocion >> cellColumn: column row:rowIndex [
 column id = 'Suscripcion' ifTrue: [ ^self SuscripcionRow: rowIndex].
 column id= 'Cantidad Articulos' ifTrue: [ ^self CantidadArticulos:rowIndex ].
@@ -89,22 +89,22 @@ Promocion >> getCantidadArticulos [
 ^cantidad asNumber
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Promocion >> getDescuentoPromocion [
 ^descuento asString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Promocion >> getFechaFin [
 ^fechaFin.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Promocion >> getFechaInicio [
 ^fechaInicio.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Promocion >> getMeses [
 |count fechaAuxInicio fechaAuxFin|
 count:=0.
@@ -114,17 +114,17 @@ fechaAuxFin :=fechaFin asDate.
 ^count asString.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Promocion >> getNuevaSuscripcion [
 ^nuevaSuscripcion asString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Promocion >> getSuscripcion [
 ^suscripcionBase asString
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #gettersVisual }
 Promocion >> meses:rowIndex [
 ^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getMeses asStringMorph;
