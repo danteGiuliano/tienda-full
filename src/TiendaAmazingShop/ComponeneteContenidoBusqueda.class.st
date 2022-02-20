@@ -2,7 +2,7 @@
 self call openInHand.
 "
 Class {
-	#name : #ComponenetContenidoBusqueda,
+	#name : #ComponeneteContenidoBusqueda,
 	#superclass : #BorderedMorph,
 	#instVars : [
 		'table',
@@ -15,7 +15,7 @@ Class {
 }
 
 { #category : #'ffi-calls' }
-ComponenetContenidoBusqueda class >> call [
+ComponeneteContenidoBusqueda class >> call [
 |temp|
 temp := self new.
 temp initialize.
@@ -23,7 +23,7 @@ temp initialize.
 ]
 
 { #category : #'ffi-calls' }
-ComponenetContenidoBusqueda class >> call:table [
+ComponeneteContenidoBusqueda class >> call:table [
 |temp|
 temp := self new.
 temp initialize.
@@ -32,7 +32,7 @@ temp table:table.
 ]
 
 { #category : #initialization }
-ComponenetContenidoBusqueda >> addMorphs [
+ComponeneteContenidoBusqueda >> addMorphs [
 Helper addCenterMorph:inputNombre  in:self.   
 Helper addCenterMorph:search  in:self.  
 Helper addCenterMorph:resultado in:self. 
@@ -41,7 +41,7 @@ Helper addCenterMorph:contenido in:self.
 ]
 
 { #category : #initialization }
-ComponenetContenidoBusqueda >> defineMorph [
+ComponeneteContenidoBusqueda >> defineMorph [
 self extent: 620@200.
 
 inputNombre :=TextBox create:'Nombre contenido' size:500@30.
@@ -52,7 +52,7 @@ contenido :=BorderedMorph new extent:600@100.
 ]
 
 { #category : #initialization }
-ComponenetContenidoBusqueda >> initialize [ 
+ComponeneteContenidoBusqueda >> initialize [ 
 super initialize.
 self defineMorph.
 self addMorphs.
@@ -61,7 +61,7 @@ self logic.
 ]
 
 { #category : #initialization }
-ComponenetContenidoBusqueda >> logic [
+ComponeneteContenidoBusqueda >> logic [
 search mouseAction:[
 	(inputNombre text)asString='' ifFalse:[
 		|input contenidoModel |
@@ -78,7 +78,7 @@ search mouseAction:[
 ]
 
 { #category : #initialization }
-ComponenetContenidoBusqueda >> style [
+ComponeneteContenidoBusqueda >> style [
 inputNombre top:self top+20.
 inputNombre  left:self left+10.
 search top:inputNombre top.
@@ -102,25 +102,25 @@ resultado font:(StandardFonts codeFont).
 ]
 
 { #category : #initialization }
-ComponenetContenidoBusqueda >> subMenu:aTable [
+ComponeneteContenidoBusqueda >> subMenu:aTable [
 table :=aTable.
 
 
 ]
 
 { #category : #initialization }
-ComponenetContenidoBusqueda >> table:aTable [
+ComponeneteContenidoBusqueda >> table:aTable [
 table :=aTable.
 
 
 ]
 
 { #category : #initialization }
-ComponenetContenidoBusqueda >> updateView:contenidoModel [
+ComponeneteContenidoBusqueda >> updateView:contenidoModel [
 |pos|
 pos :=contenido center.
 contenido delete.
-contenido :=ComponentContenido createComponentModel:contenidoModel.
+contenido :=ComponenteContenido createComponentModel:contenidoModel.
 contenido table:table.
 Helper addCenterMorph:contenido in:self. 
 Helper border:contenido aColor:Theme morphContrast rad:6. 

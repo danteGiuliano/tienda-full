@@ -20,7 +20,7 @@ temp := self new.
 
 { #category : #initialization }
 MenuSuscripcion >> addPromocion [
-promocion:=ComponenetPromocion new.
+promocion:=ComponenetePromocion new.
 subMenu addMorph:promocion.
 promocion addDependent:self.
  

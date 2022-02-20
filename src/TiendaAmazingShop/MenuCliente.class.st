@@ -25,7 +25,7 @@ MenuCliente >> addOptions [
 	addCliente := ModalCliente call.
 	searchCliente := ModalBuscarCliente call.
 	addSuscription := ModalAñadirSuscripcion call.
-	buyContenido :=ComponenetCompraContenido call.
+	buyContenido :=ComponeneteCompraContenido call.
 	searchPagos :=ComponenteClientePago create.
 	subMenu addMorph:addCliente;addMorph:searchCliente ;addMorph:addSuscription;addMorph:buyContenido;addMorph:searchPagos.
 ]

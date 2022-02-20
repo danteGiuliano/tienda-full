@@ -2,7 +2,7 @@
 self call openInHand
 "
 Class {
-	#name : #ComponenetCompraContenido,
+	#name : #ComponeneteCompraContenido,
 	#superclass : #BorderedMorph,
 	#instVars : [
 		'text',
@@ -17,12 +17,12 @@ Class {
 }
 
 { #category : #'ffi-calls' }
-ComponenetCompraContenido class >> call [
+ComponeneteCompraContenido class >> call [
 	^ (self new)openInWorld
 ]
 
 { #category : #initialization }
-ComponenetCompraContenido >> defineMorph [
+ComponeneteCompraContenido >> defineMorph [
 self extent:300@350.
 text:=RubScrolledTextMorph new extent:290@220.
 inputContenido :=TextBox create:'nombre contenido' size:200@30.
@@ -34,7 +34,7 @@ self addMorph:text;addMorph:comprar;addMorph:inputContenido ;addMorph:search;add
 ]
 
 { #category : #initialization }
-ComponenetCompraContenido >> initialize [ 
+ComponeneteCompraContenido >> initialize [ 
 super initialize. 
 self defineMorph.
 self style.
@@ -42,7 +42,7 @@ self logic.
 ]
 
 { #category : #initialization }
-ComponenetCompraContenido >> logic [
+ComponeneteCompraContenido >> logic [
 	search
 		mouseAction: [ cliente := Control
 				modelFuntionReturn: [ :h | h searchDNI: inputDNi text asString ].
@@ -66,7 +66,7 @@ ComponenetCompraContenido >> logic [
 ]
 
 { #category : #initialization }
-ComponenetCompraContenido >> style [ 
+ComponeneteCompraContenido >> style [ 
 "position"
 inputDNi top: self top+15.
 inputDNi left:self left+15.

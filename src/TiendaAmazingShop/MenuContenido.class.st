@@ -30,7 +30,7 @@ temp := self new.
 
 { #category : #initialization }
 MenuContenido >> addContenido [
-addContenido :=ComponentContenidoMenu call.
+addContenido :=ComponenteContenidoMenu call.
 Helper addLeftBottomMorph:addContenido  in:subMenu. 
 
 
@@ -83,7 +83,7 @@ MenuContenido >> routes [
 
 { #category : #initialization }
 MenuContenido >> searchContenido [
-componetSearch :=ComponenetContenidoBusqueda call.
+componetSearch :=ComponeneteContenidoBusqueda call.
 Helper addCenterBottomMorph: componetSearch  in:subMenu.
 
 

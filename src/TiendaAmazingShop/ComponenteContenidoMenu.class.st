@@ -1,5 +1,5 @@
 Class {
-	#name : #ComponentContenidoMenu,
+	#name : #ComponenteContenidoMenu,
 	#superclass : #BorderedMorph,
 	#instVars : [
 		'inputNombre',
@@ -14,7 +14,7 @@ Class {
 }
 
 { #category : #'ffi-calls' }
-ComponentContenidoMenu class >> call [ 
+ComponenteContenidoMenu class >> call [ 
 |temp|
 temp :=self new.
 temp initialize.
@@ -22,7 +22,7 @@ temp initialize.
 ]
 
 { #category : #initialization }
-ComponentContenidoMenu >> addButtoms [
+ComponenteContenidoMenu >> addButtoms [
 buttomAplicacion:=Button create:'Aplicacion' size:70@30.
 buttomLibro :=Button create:'Libro' size:70@30.    
 buttomPelicula :=Button create:'Pelicula' size:70@30.
@@ -35,7 +35,7 @@ Helper addCenterBottomMorph: buttomPelicula   in:self.
 ]
 
 { #category : #initialization }
-ComponentContenidoMenu >> addInputs [
+ComponenteContenidoMenu >> addInputs [
 inputPrecio :=TextBox create:'Ingrese un precio' size:200@30.
 inputNombre :=TextBox create:'Ingrese un nombre' size:200@30.
 
@@ -44,14 +44,14 @@ Helper addCenterBottomMorph: inputPrecio  in:self.
 ]
 
 { #category : #initialization }
-ComponentContenidoMenu >> defineMorph [
+ComponenteContenidoMenu >> defineMorph [
 self extent:350@150.
 self color:Theme morph.
 Helper border: self aColor:Theme morph  rad:3.
 ]
 
 { #category : #initialization }
-ComponentContenidoMenu >> initialize [
+ComponenteContenidoMenu >> initialize [
 super initialize.
 self defineMorph.
 self addButtoms.
@@ -62,7 +62,7 @@ self logic.
 ]
 
 { #category : #'as yet unclassified' }
-ComponentContenidoMenu >> logic [ 
+ComponenteContenidoMenu >> logic [ 
 buttomAplicacion mouseAction:[
 	tipo:='Aplicacion'.
 	Helper border: buttomAplicacion  aColor:Color red  rad:3.
@@ -101,7 +101,7 @@ crear mouseAction:[
 ]
 
 { #category : #initialization }
-ComponentContenidoMenu >> style [
+ComponenteContenidoMenu >> style [
 "Styles inputs."
 inputNombre left: self left+20.
 inputNombre top: self top +20.

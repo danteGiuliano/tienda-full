@@ -30,7 +30,7 @@ PanelContenido >> addElements [
 |contenidos|
 contenidos :=Control modelFuntionReturn:[:h| h getContenidos].
 contenidos do:[:contenido||component|
-	component:=ComponentContenido createComponentModel:contenido.
+	component:=ComponenteContenido createComponentModel:contenido.
 	component table:table.
 	self addMenuItem:(component).
 	].

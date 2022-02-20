@@ -1,5 +1,5 @@
 Class {
-	#name : #ComponentContenido,
+	#name : #ComponenteContenido,
 	#superclass : #BorderedMorph,
 	#instVars : [
 		'table',
@@ -14,7 +14,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-ComponentContenido class >> createComponentAName:aName aPrecio:aPrice aFecha:aFecha yTipo:unTipo [
+ComponenteContenido class >> createComponentAName:aName aPrecio:aPrice aFecha:aFecha yTipo:unTipo [
 |temp|
 temp := self new.
 temp initializeName:aName aPrice:aPrice aFecha:aFecha tipo:unTipo.
@@ -22,7 +22,7 @@ temp initializeName:aName aPrice:aPrice aFecha:aFecha tipo:unTipo.
 ]
 
 { #category : #'as yet unclassified' }
-ComponentContenido class >> createComponentModel:contenidoModel [
+ComponenteContenido class >> createComponentModel:contenidoModel [
 | aName aPrice aFecha unTipo|
 aName :=contenidoModel name.
 aPrice :=contenidoModel precio.
@@ -32,7 +32,7 @@ unTipo :=(contenidoModel class)asString.
 ]
 
 { #category : #initialization }
-ComponentContenido >> data:aName aPrice:aPrice aFecha:aFecha yTipo:unTipo [.
+ComponenteContenido >> data:aName aPrice:aPrice aFecha:aFecha yTipo:unTipo [.
 nombre contents:nombre contents,' ',aName.
 precio  contents:precio contents,' ',aPrice asString.
 fechaInicio  contents:fechaInicio contents,' ',aFecha.
@@ -41,7 +41,7 @@ tipo contents:unTipo.
 ]
 
 { #category : #initialization }
-ComponentContenido >> defineMorph [
+ComponenteContenido >> defineMorph [
 self extent:600@100.
 verCompras:=Button create:'Ver Compras' size:100@30.
 
@@ -60,7 +60,7 @@ Helper addRightCenterMorph: verCompras in:self.
 ]
 
 { #category : #initialization }
-ComponentContenido >> initializeName:aName aPrice:aPrice aFecha:aFecha tipo:unTipo [.
+ComponenteContenido >> initializeName:aName aPrice:aPrice aFecha:aFecha tipo:unTipo [.
 super initialize.
 self defineMorph.
 self style.
@@ -70,7 +70,7 @@ self logicSubMenu.
 ]
 
 { #category : #initialization }
-ComponentContenido >> logicSubMenu [
+ComponenteContenido >> logicSubMenu [
 |clientes  collectionDataCompra|
 verCompras mouseAction:[
 	collectionDataCompra :=OrderedCollection new.
@@ -84,7 +84,7 @@ verCompras mouseAction:[
 ]
 
 { #category : #initialization }
-ComponentContenido >> style [ 
+ComponenteContenido >> style [ 
 nombre left:self left +30.
 nombre top:self top+15.
 
@@ -115,6 +115,6 @@ tipo font:StandardFonts codeFont.
 ]
 
 { #category : #initialization }
-ComponentContenido >> table:aTable [
+ComponenteContenido >> table:aTable [
 table:=aTable.
 ]

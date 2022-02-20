@@ -2,7 +2,7 @@
 self call openInHand
 "
 Class {
-	#name : #ComponenetPromocion,
+	#name : #ComponenetePromocion,
 	#superclass : #BorderedMorph,
 	#instVars : [
 		'inputSuscripcion',
@@ -16,12 +16,12 @@ Class {
 }
 
 { #category : #'ffi-calls' }
-ComponenetPromocion class >> call [
+ComponenetePromocion class >> call [
 ^self new.
 ]
 
 { #category : #initialization }
-ComponenetPromocion >> addButtom [
+ComponenetePromocion >> addButtom [
 aplicar :=Button create:'APLICAR' size:60@30. 
 self addMorph:aplicar.
 aplicar color:Color transparent;borderColor:Color transparent.
@@ -29,7 +29,7 @@ aplicar addDependent:self.
 ]
 
 { #category : #adding }
-ComponenetPromocion >> addInputs [
+ComponenetePromocion >> addInputs [
 inputSuscripcion :=TextBox create:'Suscripcion' size: 200@30.
 cantidad :=TextBox create:'Cantidad Articulos' size:200@30.
 inputOtraSuscripcion :=TextBox create:'Otra suscripcipon' size:200@30.
@@ -41,7 +41,7 @@ self addMorph:inputSuscripcion;addMorph:cantidad;addMorph:inputOtraSuscripcion;a
 ]
 
 { #category : #initialization }
-ComponenetPromocion >> addPromotion [
+ComponenetePromocion >> addPromotion [
 |promotion fechaFin|
 fechaFin :=Date today.
 fechaFin:=fechaFin  addMonths:(cantidadMeses input)asNumber.
@@ -51,19 +51,19 @@ DataBase registerPromocion: promotion.
 ]
 
 { #category : #initialization }
-ComponenetPromocion >> changed [ 
+ComponenetePromocion >> changed [ 
 self changed:self.
 ]
 
 { #category : #initialization }
-ComponenetPromocion >> defineMorph [
+ComponenetePromocion >> defineMorph [
 self extent:300@350.
 self color:Theme morph.
 Helper border:self aColor:self color  rad:8. 
 ]
 
 { #category : #initialization }
-ComponenetPromocion >> initialize [ 
+ComponenetePromocion >> initialize [ 
 super initialize.
 self defineMorph.
 self addInputs.
@@ -73,7 +73,7 @@ self logic.
 ]
 
 { #category : #initialization }
-ComponenetPromocion >> logic [ 
+ComponenetePromocion >> logic [ 
 |blockCondition inputs validate|
 aplicar mouseAction:[
 "Verify inputs not nils"
@@ -97,7 +97,7 @@ validate isEmpty ifTrue:[
 ]
 
 { #category : #initialization }
-ComponenetPromocion >> style [
+ComponenetePromocion >> style [
 inputSuscripcion top:self top+20;left:self left+15.
 cantidad top:inputSuscripcion bottom+20;left:inputSuscripcion left.
 inputOtraSuscripcion top:cantidad bottom+40;left: cantidad left.
@@ -108,6 +108,6 @@ aplicar textSize:12;textColor:Theme buttomText.
 ]
 
 { #category : #initialization }
-ComponenetPromocion >> update:aBoton [.
+ComponenetePromocion >> update:aBoton [.
 self changed.
 ]
