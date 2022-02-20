@@ -1,3 +1,6 @@
+"
+self call openInHand
+"
 Class {
 	#name : #ComponenetPromocion,
 	#superclass : #BorderedMorph,
@@ -11,6 +14,11 @@ Class {
 	],
 	#category : #'TiendaAmazingShop-components tienda'
 }
+
+{ #category : #'ffi-calls' }
+ComponenetPromocion class >> call [
+^self new.
+]
 
 { #category : #initialization }
 ComponenetPromocion >> addButtom [

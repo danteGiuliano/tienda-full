@@ -18,7 +18,7 @@ DataBase class >> actualizar_cantidad_productos_compra:unCliente [
 suscripcion :=unCliente getSuscripcionActiva.
 nombre :='"',suscripcion getTipo,'"'.
 l :=database query:'UPDATE Suscripcion_Comprada SET cantidad_productos=cantidad_productos+1 WHERE id_user=',id_user ,' && nombre_suscripcion=',nombre,' && dni_cliente=',(unCliente getDni)asString,' &&
-fecha_inicio=','"',suscripcion getFechaInicio,'"'.
+fecha_inicio=','"',suscripcion getInicio,'"'.
 l.
 ]
 

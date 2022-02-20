@@ -54,17 +54,10 @@ listaDeSuscripcion add:aSuscription.
 ]
 
 { #category : #'as yet unclassified' }
-Cliente >> aplicarPromocion:unaPromocion [
-|suscripcionComprada|
-suscripcionComprada := listaDeSuscripcion at:1.
-suscripcionComprada añadirPromo: unaPromocion.
-listaDeSuscripcion at:1 put:suscripcionComprada.
-]
-
-{ #category : #'as yet unclassified' }
 Cliente >> añadirContenido:unContenido [
 listaContenidos add:unContenido.
-colPago add:(Pago crearPago:unContenido precio deItem:unContenido  ySuscripcion:(self getSuscripcionActiva)).
+
+colPago add:(Pago crearPago:(unContenido precioDescuento:(self getSuscripcionActiva)) deItem:unContenido  ySuscripcion:(self getSuscripcionActiva)).
 (self getSuscripcionActiva) contenidoComprado 
 ]
 

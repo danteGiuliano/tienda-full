@@ -51,7 +51,7 @@ Helper border:exit  aColor:Color white rad:3.
 
 { #category : #initialization }
 Menu >> addFondoAnimado [
-fonde :=MorphGIF gifFromString:'recursos/fondo.gif'.
+fonde :=MorphGIF gifFromString:'pharo-local/iceberg/danteGiuliano/tienda-full/src/recursos/fondo.gif'.
 fonde fullBounds.
 self addMorph:fonde.
 fonde center:self center.
@@ -65,9 +65,9 @@ menuSuscripcion :=CircleButton new extent:128@128.
 menuCliente :=CircleButton new extent:128@128.
 menuContenido :=CircleButton new extent:128@128.
 
-menuSuscripcion icon:(Icon stringRoute:'recursos/suscripcion.png').
-menuCliente icon:(Icon stringRoute:'recursos/cliente.png').
-menuContenido icon:(Icon stringRoute:'recursos/contenido-pagado.png').
+menuSuscripcion icon:(Icon stringRoute:'pharo-local/iceberg/danteGiuliano/tienda-full/src/recursos/suscripcion.png').
+menuCliente icon:(Icon stringRoute:'pharo-local/iceberg/danteGiuliano/tienda-full/src/recursos/cliente.png').
+menuContenido icon:(Icon stringRoute:'pharo-local/iceberg/danteGiuliano/tienda-full/src/recursos/contenido-pagado.png').
 menuSuscripcion color:Theme morph.
 menuCliente  color:Theme morph.
 menuContenido color:Theme morph.
