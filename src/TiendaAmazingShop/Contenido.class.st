@@ -53,7 +53,7 @@ Contenido >> getData [
 
 { #category : #accessing }
 Contenido >> getIDCategoria [
-^self className.
+^self className asString.
 ]
 
 { #category : #accessing }

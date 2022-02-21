@@ -137,17 +137,18 @@ self desconectar.
 
 { #category : #'querys_up' }
 DataBase class >> registerCompra_contenido: unContenido paraCliente: unCliente [
-	| fecha dni nombreContenido nombreSuscripcion |
+	| fecha dni nombreContenido nombreSuscripcion precio|
 	dni := unCliente getDni asString.
 	nombreContenido := unContenido name.
 	fecha := Date today yyyymmdd.
 	nombreSuscripcion := unCliente getSuscripcionActiva getTipo.
+	precio :=(unCliente obtenerPrecioContenido:unContenido)asString.
 	self runDataBase.
 	database
 		query:
-			'INSERT INTO Contenido_Comprado (cliente_dni,suscripcion,fecha,nombre_contenido)VALUES('
+			'INSERT INTO Contenido_Comprado (cliente_dni,suscripcion,fecha,nombre_contenido,precio)VALUES('
 				, dni , ',"' , nombreSuscripcion , '","' , fecha , '","'
-				, nombreContenido , '")'.
+				, nombreContenido,'",',precio,')'.
 				self actualizar_cantidad_productos_compra:unCliente.
 		self desconectar
 ]

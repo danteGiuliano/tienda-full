@@ -33,6 +33,7 @@ Pago >> createWithMySQL:aInstance [
 item :=  Control modelFuntionReturn: [ :h | h searchContenido: (aInstance at: 4) ].
 fechaPago := (aInstance at:3)asDate.
 suscripcion :=aInstance at:2.
+precio :=aInstance at:5.
 ]
 
 { #category : #'as yet unclassified' }
