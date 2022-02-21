@@ -102,7 +102,8 @@ Cliente >> compraContenido:unContenido [
 |unPrecio|
 unPrecio := self obtenerPrecioContenido:unContenido.
 unPrecio == -1 ifFalse:[
-	colPago add:(Pago crearPago:unPrecio deItem:unContenido   ySuscripcion:self getSuscripcionActiva )
+	colPago add:(Pago crearPago:unPrecio deItem:unContenido   ySuscripcion:self getSuscripcionActiva ).
+	self getSuscripcionActiva contenidoComprado.
 	]
 
 ]
@@ -171,10 +172,10 @@ Cliente >> getSuscripcionActiva [
 |suscripcion sinDescuento temp|
 sinDescuento :=Dictionary  newFrom:{'Aplicacion'->0.'Pelicula'->0.'Libro'->0}.
 suscripcion :=SuscripcionComprada crearSuscripcion:sinDescuento .
-listaDeSuscripcion isEmpty ifTrue:[
-	temp :=suscripcion.
-	]ifFalse:[
-	temp :=listaDeSuscripcion at:1.
+temp :=suscripcion.
+listaDeSuscripcion isEmpty ifFalse:[
+	suscripcion :=listaDeSuscripcion at:1.
+	suscripcion vigente ifTrue:[temp :=listaDeSuscripcion at:1.].
 	].
 ^temp.
 ]
