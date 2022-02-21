@@ -253,9 +253,15 @@ test isNotNil ifTrue:[
 
 { #category : #'as yet unclassified' }
 Cliente >> promocionValida:unaCantidadArticulos [
-|suscripcionComprada|
-suscripcionComprada :=listaDeSuscripcion at:1.
-^(suscripcionComprada  promocionAplicable:unaCantidadArticulos).
+|suscripcionComprada flag|
+flag :=false.
+listaDeSuscripcion isEmpty ifFalse:[
+	suscripcionComprada :=listaDeSuscripcion at:1.
+	flag:=(suscripcionComprada  promocionAplicable:unaCantidadArticulos).
+	].
+^flag.
+
+
 ]
 
 { #category : #gettersVisual }
