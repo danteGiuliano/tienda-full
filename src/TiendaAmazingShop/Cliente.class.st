@@ -6,7 +6,6 @@ Class {
 		'dni',
 		'email',
 		'listaDeSuscripcion',
-		'listaContenidos',
 		'colPago'
 	],
 	#category : #'TiendaAmazingShop-model'
@@ -41,14 +40,6 @@ listaDeSuscripcion add:aSuscription.
 ]
 
 { #category : #'as yet unclassified' }
-Cliente >> añadirContenido:unContenido [
-listaContenidos add:unContenido.
-
-colPago add:(Pago crearPago:(unContenido precioDescuento:(self getSuscripcionActiva)) deItem:unContenido  ySuscripcion:(self getSuscripcionActiva)).
-(self getSuscripcionActiva) contenidoComprado 
-]
-
-{ #category : #'as yet unclassified' }
 Cliente >> añadirContenidoMySQL: aMySQLQuery [
 	aMySQLQuery
 		do: [ :instanceKey | 
@@ -56,7 +47,6 @@ Cliente >> añadirContenidoMySQL: aMySQLQuery [
 			contenido := Control
 				modelFuntionReturn: [ :h | h searchContenido: (instanceKey at: 4) ].
 				colPago add:(Pago createWithMySQL:instanceKey).
-				listaContenidos add:contenido.
 				]
 ]
 
@@ -126,7 +116,6 @@ listaDeSuscripcion add:unaSuscripcion.
 { #category : #'as yet unclassified' }
 Cliente >> crearColleciones [
 listaDeSuscripcion :=SortedCollection sortBlock:[:f1 :f2 |f1 mayor:f2].
-listaContenidos :=OrderedCollection new.
 colPago :=OrderedCollection new.
 "listaDeSuscripcion add: SuscripcionComprada crearSuscripcionNoActiva."
 ]
