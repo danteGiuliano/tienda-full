@@ -7,7 +7,8 @@ Class {
 		'search',
 		'textBox',
 		'model',
-		'instanceClient'
+		'instanceClient',
+		'addSuscriptionPromo'
 	],
 	#category : #'TiendaAmazingShop-components tienda'
 }
@@ -30,16 +31,20 @@ temp openCenteredInWorld.
 { #category : #initialization }
 ModalAñadirSuscripcion >> addBottoms [ 
 addSuscription :=Button create: 'Anadir Suscripcion' size:120@30.
+addSuscriptionPromo :=Button create: 'Tiene Promocion' size:120@30.
 search :=Button create:'BUSCAR' size:70@20.
 
 addSuscription color:(Theme buttom);textColor:(Theme buttomText). 
+addSuscriptionPromo color:(Theme buttom);textColor:(Theme buttomText). 
 search color:(Theme buttom);textColor:(Theme buttomText).
 
 Helper border: search  aColor:search color  rad:2. 
 Helper border: addSuscription   aColor: addSuscription color rad:3.
+Helper border: addSuscriptionPromo   aColor: addSuscription color rad:3.
 
 Helper addRightTopMorph: search  in:self.
 Helper addCenterMorph: addSuscription  in:self.  
+Helper addCenterMorph: addSuscriptionPromo  in:self.  
  
 ]
 
@@ -89,6 +94,12 @@ self updateTextBox:(Control modelFuntionReturn:[:h| h searchDNI:(inputDNI text)a
 addSuscription mouseAction:[self updateAddSuscripcion.]
 ]
 
+{ #category : #'as yet unclassified' }
+ModalAñadirSuscripcion >> ofrecerPromos:promos [
+addSuscriptionPromo textColor:Color green .
+
+]
+
 { #category : #initialization }
 ModalAñadirSuscripcion >> style [
 "Boton search"
@@ -101,6 +112,10 @@ inputDNI right:search left-5.
 textBox left: self top+10.
 "Boton add suscription"
 addSuscription top:textBox bottom+5.
+addSuscription left:textBox left.
+addSuscriptionPromo right:textBox  right.
+addSuscriptionPromo bottom:addSuscription bottom.
+addSuscription disable.
 Helper border:self aColor:self color.
 ]
 
@@ -131,8 +146,11 @@ ModalAñadirSuscripcion >> updateTextBox:aClient [
 aClient ifNil:[textBox setText:'Usuario no encontrado'.addSuscription textColor:(Color gray).
 	instanceClient :=nil.
 	]ifNotNil:[
-	textBox setText:aClient getData.
+	|promos|
 	instanceClient :=aClient.
+	promos :=Control modelFuntionReturn:[:h| h tienePromocion:instanceClient].
+	promos isEmpty ifFalse:[self ofrecerPromos:promos].
+	textBox setText:aClient getData.
 	addSuscription textColor:(Color green).
 	].
 ]

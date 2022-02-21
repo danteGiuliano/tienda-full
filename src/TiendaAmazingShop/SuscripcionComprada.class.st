@@ -45,15 +45,6 @@ temp compraContenidos.
 
 { #category : #'as yet unclassified' }
 SuscripcionComprada class >> createWithSQL:unaListaDescuentos yFechaInicio:unaFechaInicio yFechaFin:unaFechaFin deNombre:unNombre
-contenidosComprados:cantidad [
-|temp|
-temp :=self new.
-temp añadirListaMySQL:unaListaDescuentos  yFechaInicio:unaFechaInicio   yFechaFIN:unaFechaFin   deNombre: unNombre contenidosComprados:cantidad.
-^temp.
-]
-
-{ #category : #'as yet unclassified' }
-SuscripcionComprada class >> createWithSQL:unaListaDescuentos yFechaInicio:unaFechaInicio yFechaFin:unaFechaFin deNombre:unNombre
 contenidosComprados:cantidad yPrecio:unPrecio [
 |temp|
 temp :=self new.
@@ -68,16 +59,6 @@ fechaInicio :=Date today yyyymmdd.
 fechaFin :=Date today onNextMonth  yyyymmdd.
 suscripto :=true.
 
-]
-
-{ #category : #'as yet unclassified' }
-SuscripcionComprada >> añadirListaMySQL:unaLista yFechaInicio:unaFechaInicio yFechaFIN:unaFechaFin deNombre:unNombre contenidosComprados:cantidad [
-listaDescuento :=unaLista.
-fechaInicio :=unaFechaInicio.
-fechaFin :=unaFechaFin.
-nombreSuscripcion :=unNombre.
-contenidosComprados :=cantidad.
-suscripto :=true.
 ]
 
 { #category : #'as yet unclassified' }

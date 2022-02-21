@@ -206,3 +206,10 @@ Tienda >> searchDNI:unDni [
 ^colectionClientes detect:[:cliente|cliente equals:unDni]ifNone:[nil].
 
 ]
+
+{ #category : #'as yet unclassified' }
+Tienda >> tienePromocion:unCliente [
+| suscripcionActiva|
+suscripcionActiva :=unCliente getSuscripcionActiva.
+^coleccionPromos select:[:promo| suscripcionActiva promocionAplicable:(promo getCantidadArticulos)]
+]
