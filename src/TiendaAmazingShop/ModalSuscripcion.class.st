@@ -6,6 +6,7 @@ Class {
 		'inputDescuentoLibro',
 		'inputDescuentoAplicacion',
 		'inputDescuentoPelicula',
+		'inputPrecio',
 		'botonCreate',
 		'botonExit'
 	],
@@ -30,11 +31,12 @@ botonCreate addDependent:self.
 
 { #category : #initialization }
 ModalSuscripcion >> addSuscription [
-|colection aDiccionary|
-colection :={inputNombre input.inputDescuentoAplicacion input.inputDescuentoLibro input.inputDescuentoPelicula input}.
+|colection aDiccionary descuento|
+colection :={inputNombre input.inputDescuentoAplicacion input.inputDescuentoLibro input.inputDescuentoPelicula input. inputPrecio input}.
 "Update modelo offline"
 aDiccionary:=Dictionary newFrom:{'Pelicula'->(inputDescuentoPelicula input).'Aplicacion'->(inputDescuentoAplicacion input).'Libro'->(inputDescuentoLibro input)}.
-Control modelFuntion:[:tienda| tienda addSuscription:(Descuento conDescuentos:aDiccionary deNombre:(inputNombre input))].
+descuento :=Descuento  conDescuentos: aDiccionary  deNombre:(inputNombre input)  yPrecio:inputPrecio input. 
+Control modelFuntion:[:tienda| tienda addSuscription:descuento].
 "update modelo database"
 DataBase registerSuscription: colection.
 ]
@@ -45,11 +47,13 @@ inputDescuentoAplicacion :=TextBox create:'Descuento Aplicacion' size:200@30.
 inputDescuentoLibro :=TextBox create:'Descuento Libro' size:200@30.
 inputDescuentoPelicula :=TextBox create:'Descuento pelicula' size:200@30.
 inputNombre :=TextBox create:'Nombre de suscripcion' size:200@30.
+inputPrecio  :=TextBox create:'precio de suscripcion' size:200@30.
 
 Helper addCenterMorph:inputDescuentoAplicacion   in:self. 
 Helper addCenterMorph:inputNombre in:self.
 Helper addCenterMorph:inputDescuentoLibro in:self.
 Helper addCenterMorph:inputDescuentoPelicula in:self.
+Helper addCenterMorph:inputPrecio in:self.
 ]
 
 { #category : #initialization }
@@ -90,6 +94,9 @@ inputDescuentoLibro  top:inputDescuentoAplicacion bottom+10.
 
 inputDescuentoPelicula left:borderLeftPadding.
 inputDescuentoPelicula top:inputDescuentoLibro bottom+10.
+
+inputPrecio left:borderLeftPadding.
+inputPrecio top: inputDescuentoPelicula bottom+10.
 
 botonCreate right:self right-10.
 botonCreate bottom:self bottom-10.

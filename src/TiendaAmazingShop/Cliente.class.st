@@ -61,7 +61,7 @@ Cliente >> añadirListaMySQL:aMySQLQuery [
 	counter :=1.
 	size :=aMySQLQuery size.
 	[counter <= size] whileTrue:[
-	|data list  nameSuscription descuento_aplicacion descuento_pelicula descuento_libro fechaInicio fechaFin cantidad_productos|
+	|data list  nameSuscription descuento_aplicacion descuento_pelicula descuento_libro fechaInicio fechaFin cantidad_productos precio|
 	data :=(aMySQLQuery at:counter) columns.
 	nameSuscription:=data at:1.
 	descuento_aplicacion :=data at:2.
@@ -70,10 +70,11 @@ Cliente >> añadirListaMySQL:aMySQLQuery [
 	fechaInicio:=data at:5.
 	fechaFin :=data at:6.
 	cantidad_productos := data at:8.
+	precio :=data at:9.
 	list :=Dictionary newFrom:{'Aplicacion' ->descuento_aplicacion . 'Pelicula' ->descuento_pelicula.
 	'Libro' ->descuento_libro.
 	}.
-	data :=SuscripcionComprada createWithSQL:list yFechaInicio:fechaInicio  yFechaFin:fechaFin  deNombre:nameSuscription contenidosComprados:cantidad_productos.
+	data :=SuscripcionComprada createWithSQL:list yFechaInicio:fechaInicio  yFechaFin:fechaFin  deNombre:nameSuscription contenidosComprados:cantidad_productos yPrecio:precio.
 	self addSuscription:data.
 	counter :=counter+1.
 	].

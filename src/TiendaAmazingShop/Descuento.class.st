@@ -3,28 +3,18 @@ Class {
 	#superclass : #FTSimpleDataSource,
 	#instVars : [
 		'diccionarioDescuento',
-		'nombre'
+		'nombre',
+		'precio'
 	],
 	#category : #'TiendaAmazingShop-model'
 }
 
 { #category : #'as yet unclassified' }
-Descuento class >> conDescuentos:aDiccionary deNombre:unNombre [
+Descuento class >> conDescuentos:aDiccionary deNombre:unNombre yPrecio:unPrecio [
 |temp|
 temp :=self new.
-temp iniciarConDescuentos:aDiccionary deNombre:unNombre.
+temp iniciarConDescuentos:aDiccionary deNombre:unNombre yPrecio:unPrecio.
 ^temp.
-]
-
-{ #category : #initialization }
-Descuento class >> createWithMap:arrayMap [
-|temp reader block|
-reader :=Reader new.
-temp := self new.
-block:=[:h| reader parserVar: (arrayMap at:h)].
-temp iniciarConDescuentos:(self parserDictionary:(reader parserVarDicionary: (arrayMap at:4)))fechaInicio:(block value:2)fechaFinal:(block value:3) deNombre:(block value:5). 
-^temp.
-
 ]
 
 { #category : #'as yet unclassified' }
@@ -34,15 +24,8 @@ temp :=self new.
 query :=aMySQL columns.
 nombre :=query at:1.
 aDiccionary := Dictionary newFrom:{'Aplicacion'-> (query at:2). 'Pelicula' -> (query at:3).'Libro'->(query at:4)}.
-temp iniciarConDescuentos: aDiccionary  deNombre:nombre. 
+temp iniciarConDescuentos: aDiccionary  deNombre:nombre yPrecio:(query at:6). 
 ^temp.
-]
-
-{ #category : #'as yet unclassified' }
-Descuento class >> parserDictionary:arrayDictiionary [
-|diccionary|
-diccionary :=Dictionary new.
-^arrayDictiionary.
 ]
 
 { #category : #gettersVisual }
@@ -58,6 +41,7 @@ column id = 'Nombre' ifTrue: [ ^self nombreRow: rowIndex].
 column id= 'Descuento Libro' ifTrue: [ ^self libroRow:rowIndex ].
 column id= 'Descuento Aplicacion' ifTrue: [ ^self aplicacionRow:rowIndex ].
 column id= 'Descuento Pelicula' ifTrue: [ ^self peliculaRow:rowIndex ].
+column id= 'Precio' ifTrue: [ ^self precioRow:rowIndex ].
 
 
 ]
@@ -94,10 +78,16 @@ Descuento >> getPelicula [
 ^(diccionarioDescuento at:'Pelicula')asString,' %'
 ]
 
+{ #category : #gettersVisual }
+Descuento >> getPrecio [ 
+^precio asString.
+]
+
 { #category : #'as yet unclassified' }
-Descuento >> iniciarConDescuentos:aDiccionary deNombre:unNombre [
+Descuento >> iniciarConDescuentos:aDiccionary deNombre:unNombre yPrecio:unPrecio [
 nombre:=unNombre.
 diccionarioDescuento :=aDiccionary.
+precio:=unPrecio .
 ]
 
 { #category : #gettersVisual }
@@ -131,6 +121,13 @@ Descuento >> obtenerDescuento:selecion [
 Descuento >> peliculaRow: rowIndex [
 	^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getPelicula asStringMorph;
+		yourself
+]
+
+{ #category : #gettersVisual }
+Descuento >> precioRow: rowIndex [
+	^ FTCellMorph new  
+		addMorphBack: (self elementAt: rowIndex) getPrecio asStringMorph;
 		yourself
 ]
 

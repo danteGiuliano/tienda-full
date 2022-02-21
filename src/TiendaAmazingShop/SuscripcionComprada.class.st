@@ -8,7 +8,8 @@ Class {
 		'nombreSuscripcion',
 		'contenidosComprados',
 		'promocion',
-		'suscripto'
+		'suscripto',
+		'precio'
 	],
 	#category : #'TiendaAmazingShop-model'
 }
@@ -28,6 +29,7 @@ SuscripcionComprada class >> crearSuscripcion:unaListaDescuentos deNombre:unNomb
 temp :=self new.
 temp añadirLista:unaListaDescuentos.
 temp compraContenidos.
+temp precio:unaListaDescuentos getPrecio.
 temp nombreSuscripcion: unNombre.
 ^temp.
 ]
@@ -42,19 +44,20 @@ temp compraContenidos.
 ]
 
 { #category : #'as yet unclassified' }
-SuscripcionComprada class >> createWithSQL:unaListaDescuentos yFechaInicio:unaFechaInicio yFechaFin:unaFechaFin deNombre:unNombre [
-|temp|
-temp :=self new.
-temp añadirListaMySQL:unaListaDescuentos  yFechaInicio:unaFechaInicio   yFechaFIN:unaFechaFin   deNombre: unNombre.
-^temp.
-]
-
-{ #category : #'as yet unclassified' }
 SuscripcionComprada class >> createWithSQL:unaListaDescuentos yFechaInicio:unaFechaInicio yFechaFin:unaFechaFin deNombre:unNombre
 contenidosComprados:cantidad [
 |temp|
 temp :=self new.
 temp añadirListaMySQL:unaListaDescuentos  yFechaInicio:unaFechaInicio   yFechaFIN:unaFechaFin   deNombre: unNombre contenidosComprados:cantidad.
+^temp.
+]
+
+{ #category : #'as yet unclassified' }
+SuscripcionComprada class >> createWithSQL:unaListaDescuentos yFechaInicio:unaFechaInicio yFechaFin:unaFechaFin deNombre:unNombre
+contenidosComprados:cantidad yPrecio:unPrecio [
+|temp|
+temp :=self new.
+temp añadirListaMySQL:unaListaDescuentos  yFechaInicio:unaFechaInicio   yFechaFIN:unaFechaFin   deNombre: unNombre contenidosComprados:cantidad yPrecio:unPrecio.
 ^temp.
 ]
 
@@ -75,6 +78,17 @@ fechaFin :=unaFechaFin.
 nombreSuscripcion :=unNombre.
 contenidosComprados :=cantidad.
 suscripto :=true.
+]
+
+{ #category : #'as yet unclassified' }
+SuscripcionComprada >> añadirListaMySQL:unaLista yFechaInicio:unaFechaInicio yFechaFIN:unaFechaFin deNombre:unNombre contenidosComprados:cantidad yPrecio:unPrecio [.
+listaDescuento :=unaLista.
+fechaInicio :=unaFechaInicio.
+fechaFin :=unaFechaFin.
+nombreSuscripcion :=unNombre.
+contenidosComprados :=cantidad.
+suscripto :=true.
+precio:=unPrecio.
 ]
 
 { #category : #'as yet unclassified' }
@@ -161,6 +175,12 @@ SuscripcionComprada >> newDataSourceMatching: aFTFilter [
 { #category : #accessing }
 SuscripcionComprada >> nombreSuscripcion:unNombre [
 nombreSuscripcion :=unNombre
+]
+
+{ #category : #'as yet unclassified' }
+SuscripcionComprada >> precio:unPrecio [
+precio :=unPrecio
+
 ]
 
 { #category : #'as yet unclassified' }

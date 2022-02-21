@@ -116,6 +116,7 @@ instanceClient ifNotNil:[
 	
 	aColection add:selection.
 	aColection add:(instanceClient getDni)asString.
+	aColection add:suscription getPrecio.
 	
 	suscriptionBuy :=SuscripcionComprada crearSuscripcion:suscription deNombre:selection.
 	"Realiza un control de que el cliente no la tiene antes de agregar dante"

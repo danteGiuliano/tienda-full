@@ -41,7 +41,9 @@ button :=Button create:'Aplicar promociones' size:200@60.
 subMenu addMorph:button.
 button top:promocion bottom+20.
 button left:promocion left.
-button mouseAction:[Control modelFuntion:[:h| h aplicarPromociones].button color:(Theme morphContrast).[(Delay forSeconds:3)wait .button color:Theme buttom.]fork].
+button color:(Theme morphContrast).
+button textColor:(Theme morph).
+button mouseAction:[Control modelFuntion:[:h| h aplicarPromociones].button color:Theme buttom. button textColor:Theme buttomText.].
 ]
 
 { #category : #initialization }
@@ -72,7 +74,7 @@ tablePromocion headerBorder:0.95.
 MenuSuscripcion >> loadTableSuscripcions [
 | aNamesColumnTable temp|
 temp  :=Control modelFuntionReturn:[:tienda| tienda getSuscripciones].
-aNamesColumnTable:= #( 'Nombre' 'Descuento Libro' 'Descuento Pelicula' 'Descuento Aplicacion')asOrderedCollection.
+aNamesColumnTable:= #( 'Nombre' 'Descuento Libro' 'Descuento Pelicula' 'Descuento Aplicacion'  'Precio')asOrderedCollection.
 tableSuscripcion := Table create: (Descuento elements:(temp)) aCollums: aNamesColumnTable  aSize:(800@200).
 "Style"
 Helper addCenterMorph: tableSuscripcion in:subMenu.

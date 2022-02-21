@@ -94,7 +94,7 @@ DataBase class >> getSuscripciones_Compradas:aDni [
 self runDataBase.
 query:=database query:'SELECT
 Suscripcion.nombre_suscripcion,Suscripcion.descuento_aplicacion,Suscripcion.descuento_pelicula,Suscripcion.descuento_libro,
-Suscripcion_Comprada.fecha_inicio,Suscripcion_Comprada.fecha_fin,Suscripcion_Comprada.keyValue, Suscripcion_Comprada.cantidad_productos FROM Suscripcion_Comprada INNER JOIN Suscripcion ON Suscripcion.nombre_suscripcion=Suscripcion_Comprada.nombre_suscripcion
+Suscripcion_Comprada.fecha_inicio,Suscripcion_Comprada.fecha_fin,Suscripcion_Comprada.keyValue, Suscripcion_Comprada.cantidad_productos,Suscripcion_Comprada.precio FROM Suscripcion_Comprada INNER JOIN Suscripcion ON Suscripcion.nombre_suscripcion=Suscripcion_Comprada.nombre_suscripcion
 WHERE Suscripcion.id_user=',id_user,' AND Suscripcion_Comprada.dni_cliente=',aDni asString .
 self desconectar.
 ^query.
@@ -188,26 +188,28 @@ self desconectar.
 
 { #category : #running }
 DataBase class >> registerSuscripcion_Comprada:aCollection [
-|key dni keySub|
+|key dni keySub precio|
 key:=aCollection at:1.
 dni:=aCollection at:2.
+precio :=(aCollection at:3)asString.
 self runDataBase.
 keySub :=key,dni,Date today  yyyymmdd,Date today onNextMonth yyyymmdd.
-database query:'INSERT INTO Suscripcion_Comprada (nombre_suscripcion,dni_cliente,fecha_inicio,fecha_fin,keyValue,id_user,cantidad_productos) 
-VALUES("',key,'",',dni,',"',Date today yyyymmdd ,'","',Date today onNextMonth yyyymmdd,'","',keySub ,'",',id_user,',0)'.
+database query:'INSERT INTO Suscripcion_Comprada (nombre_suscripcion,dni_cliente,fecha_inicio,fecha_fin,keyValue,id_user,cantidad_productos,precio) 
+VALUES("',key,'",',dni,',"',Date today yyyymmdd ,'","',Date today onNextMonth yyyymmdd,'","',keySub ,'",',id_user,',0,',precio,')'.
 self desconectar.
 ]
 
 { #category : #running }
 DataBase class >> registerSuscription:aCollection [
-|nombre_suscripcion descuentro_aplicacion descuento_libro descuento_pelicula|
+|nombre_suscripcion descuentro_aplicacion descuento_libro descuento_pelicula precio|
 self runDataBase.
 nombre_suscripcion :=aCollection at:1.
 descuento_libro :=(aCollection at:2)asString.
 descuento_pelicula :=(aCollection at:3)asString.
 descuentro_aplicacion :=(aCollection at:4)asString.
 nombre_suscripcion :='"',nombre_suscripcion ,'"'.
-database query:'INSERT INTO Suscripcion (nombre_suscripcion,descuento_aplicacion,descuento_pelicula,descuento_libro,id_user) VALUES (',nombre_suscripcion ,',',descuentro_aplicacion ,',',descuento_pelicula ,',',descuento_libro,',',id_user,')'.
+precio :=(aCollection at:5)asString.
+database query:'INSERT INTO Suscripcion (nombre_suscripcion,descuento_aplicacion,descuento_pelicula,descuento_libro,id_user,precio) VALUES (',nombre_suscripcion ,',',descuentro_aplicacion ,',',descuento_pelicula ,',',descuento_libro,',',id_user,',',precio,')'.
 self desconectar.
 ]
 
