@@ -106,6 +106,7 @@ SuscripcionComprada >> cellColumn: column row:rowIndex [
 column id = 'Tipo' ifTrue: [ ^ self tipoRow: rowIndex ].
 column id= 'Inicio' ifTrue: [ ^self inicioRow:rowIndex ].
 column id= 'Vence' ifTrue: [ ^self vencimientoRow:rowIndex ].
+column id= 'Precio' ifTrue: [ ^self precioRow:rowIndex ].
 ]
 
 { #category : #dataTable }
@@ -135,6 +136,11 @@ SuscripcionComprada >> getFechaInicio [
 { #category : #dataTable }
 SuscripcionComprada >> getInicio [
 ^fechaInicio asString.
+]
+
+{ #category : #'as yet unclassified' }
+SuscripcionComprada >> getPrecio [
+^precio asString
 ]
 
 { #category : #dataTable }
@@ -181,6 +187,13 @@ nombreSuscripcion :=unNombre
 SuscripcionComprada >> precio:unPrecio [
 precio :=unPrecio
 
+]
+
+{ #category : #dataTable }
+SuscripcionComprada >> precioRow: rowIndex [
+^ FTCellMorph new  
+		addMorphBack: (self elementAt: rowIndex) getPrecio asStringMorph;
+		yourself
 ]
 
 { #category : #'as yet unclassified' }

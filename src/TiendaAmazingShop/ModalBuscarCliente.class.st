@@ -29,7 +29,7 @@ buttomSearch mouseAction:[self logic].
 ModalBuscarCliente >> addTable:aCollection [
 | aNamesColumnTable |
 
-aNamesColumnTable:= #('Tipo' 'Inicio' 'Vence')asOrderedCollection.
+aNamesColumnTable:= #('Tipo' 'Inicio' 'Vence' 'Precio')asOrderedCollection.
 table := Table create: (SuscripcionComprada elements:(aCollection)) aCollums: aNamesColumnTable  aSize:(380@230).
 
 
