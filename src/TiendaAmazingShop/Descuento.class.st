@@ -48,7 +48,7 @@ column id= 'Precio' ifTrue: [ ^self precioRow:rowIndex ].
 
 { #category : #comparing }
 Descuento >> equals:aName [
-^nombre ==aName.
+^nombre = aName.
 ]
 
 { #category : #gettersVisual }

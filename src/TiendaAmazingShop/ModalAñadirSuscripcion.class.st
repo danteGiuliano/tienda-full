@@ -96,7 +96,15 @@ addSuscription mouseAction:[self updateAddSuscripcion.]
 
 { #category : #'as yet unclassified' }
 ModalAñadirSuscripcion >> ofrecerPromos:promos [
+|names selection promo|
 addSuscriptionPromo textColor:Color green .
+addSuscriptionPromo mouseAction: [ 
+	names :=promos collect:[:aSuscription|aSuscription getNuevaSuscripcion].
+	selection:=PopupChoiceDialogWindow chooseFrom:names lines:#() title:'Promociones'.
+	promo:=promos detect:[:p|p equals:selection].
+	Control modelFuntion:[:h | h comprarSuscripcionDescuento:promo enCliente:instanceClient ]
+	 ].
+	
 
 ]
 

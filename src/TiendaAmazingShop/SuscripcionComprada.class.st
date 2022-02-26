@@ -35,6 +35,17 @@ temp nombreSuscripcion: unNombre.
 ]
 
 { #category : #'as yet unclassified' }
+SuscripcionComprada class >> crearSuscripcion:unaListaDescuentos deNombre:unNombre yPrecio:unPrecio [
+|temp|
+temp :=self new.
+temp añadirLista:unaListaDescuentos.
+temp compraContenidos.
+temp precio:unPrecio.
+temp nombreSuscripcion: unNombre.
+^temp.
+]
+
+{ #category : #'as yet unclassified' }
 SuscripcionComprada class >> crearSuscripcionNoActiva [ 
 |temp|
 temp :=self new.
@@ -219,5 +230,5 @@ SuscripcionComprada >> vencimientoRow:rowIndex [
 
 { #category : #'as yet unclassified' }
 SuscripcionComprada >> vigente [
-^fechaFin >= Date today.
+^fechaFin asDateAndTime>= Date today.
 ]

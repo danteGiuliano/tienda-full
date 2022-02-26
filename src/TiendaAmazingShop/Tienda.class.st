@@ -126,6 +126,21 @@ max :=colectionClientes size.
 ]
 
 { #category : #'as yet unclassified' }
+Tienda >> comprarSuscripcionDescuento:promo enCliente:unCliente [
+|suscripcion precio sub nombre aux|
+nombre :=promo getNuevaSuscripcion.
+suscripcion := coleccionSuscripciones detect:[:h| h equals: nombre ].
+aux :=suscripcion getPrecio asNumber.
+precio := aux - ((aux * (promo getDescuentoPromocion asNumber))/100 ).
+
+sub :=SuscripcionComprada crearSuscripcion:suscripcion  deNombre:nombre  yPrecio: precio.
+self añadirSuscripcionComprada:sub aCliente:unCliente. 
+
+"DataBase"
+DataBase registerSuscripcion_Comprada: { nombre. (unCliente getDni)asString. precio asString}
+]
+
+{ #category : #'as yet unclassified' }
 Tienda >> crearWithSQL [
 | clientes  |"Este metodo se encarga de updatear clientes, puesto que debe existir la instancia previamente"
 clientes :=DataBase getClients.

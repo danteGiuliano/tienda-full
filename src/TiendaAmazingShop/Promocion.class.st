@@ -84,6 +84,11 @@ Promocion >> descuento [
 ^descuento asNumber.
 ]
 
+{ #category : #comparing }
+Promocion >> equals:aNameSuscription [
+^nuevaSuscripcion ==aNameSuscription.
+]
+
 { #category : #'as yet unclassified' }
 Promocion >> getCantidadArticulos [
 ^cantidad asNumber
