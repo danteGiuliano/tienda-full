@@ -90,7 +90,7 @@ promocion :=unaPromocion.
 
 { #category : #'as yet unclassified' }
 SuscripcionComprada >> calcularDescuento:unId [
-^listaDescuento at:unId.
+^listaDescuento obtenerDescuento:unId.
 ]
 
 { #category : #dataTable }
