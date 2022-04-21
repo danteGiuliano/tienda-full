@@ -212,7 +212,7 @@ coleccionPromos :=OrderedCollection new.
 
 { #category : #'as yet unclassified' }
 Tienda >> searchContenido:unNombre [
-^colectionContenidos  detect:[:contenido|contenido equals:unNombre]ifNone:[nil].
+^colectionContenidos  detect:[:contenido|contenido seCompro:unNombre]ifNone:[nil].
 
 ]
 
