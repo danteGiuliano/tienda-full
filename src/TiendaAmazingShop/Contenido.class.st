@@ -37,7 +37,7 @@ fecha :=unaFecha.
 ]
 
 { #category : #accessing }
-Contenido >> equals:unNombre [
+Contenido >> seCompro:unNombre [
 ^((nombre asString )=(unNombre asString)).
 ]
 
