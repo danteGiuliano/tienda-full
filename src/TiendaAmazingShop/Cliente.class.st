@@ -236,7 +236,7 @@ Cliente >> pagoContenido:contenido [
 Cliente >> poseeContenido:contenido [
 |flag test|
 flag:=false.
-test:=colPago detect:[:unPago|unPago equals:contenido name]ifNone:[nil].
+test:=colPago detect:[:unPago|unPago seCompro:contenido name]ifNone:[nil].
 test isNotNil ifTrue:[
 	flag :=true.].
 ^flag.
