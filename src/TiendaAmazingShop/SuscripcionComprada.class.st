@@ -90,7 +90,13 @@ promocion :=unaPromocion.
 
 { #category : #'as yet unclassified' }
 SuscripcionComprada >> calcularDescuento:unId [
-^listaDescuento obtenerDescuento:unId.
+|descuento|
+(listaDescuento className) = 'Descuento' ifTrue:[
+	descuento :=listaDescuento obtenerDescuento:unId
+	]ifFalse:[
+	descuento :=listaDescuento at:unId.
+	].
+^descuento.
 ]
 
 { #category : #dataTable }
