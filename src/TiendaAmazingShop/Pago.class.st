@@ -57,6 +57,11 @@ Pago >> getSuscripcion [
 ]
 
 { #category : #'as yet unclassified' }
+Pago >> seCompro:unContenido [
+^(item name  == unContenido ) .
+]
+
+{ #category : #'as yet unclassified' }
 Pago >> toString [ 
 ^('Nombre :',item name,'\','Fecha :',fechaPago asString ,'\','PRECIO :',precio asString)withCRs
 ]
