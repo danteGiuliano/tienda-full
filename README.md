@@ -18,3 +18,8 @@ Para iniciar el programa
 ```
 Login create
 ```
+
+En caso de tener problemas con credenciales , ya que por defecto usa SSH, puede configurar el tipo de cloning con Https ejecutando previamente
+```
+Iceberg remoteTypeSelector: #httpsUrl
+```
