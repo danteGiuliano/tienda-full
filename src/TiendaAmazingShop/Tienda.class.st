@@ -133,7 +133,7 @@ suscripcion := coleccionSuscripciones detect:[:h| h equals: nombre ].
 aux :=suscripcion getPrecio asNumber.
 precio := aux - ((aux * (promo getDescuentoPromocion asNumber))/100 ).
 
-sub :=SuscripcionComprada crearSuscripcion:suscripcion  deNombre:nombre  yPrecio: precio.
+sub :=Suscripcion crearSuscripcion:suscripcion  deNombre:nombre  yPrecio: precio.
 self añadirSuscripcionComprada:sub aCliente:unCliente. 
 
 "DataBase"

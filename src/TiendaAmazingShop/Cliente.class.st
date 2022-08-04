@@ -74,7 +74,7 @@ Cliente >> añadirListaMySQL:aMySQLQuery [
 	list :=Dictionary newFrom:{'Aplicacion' ->descuento_aplicacion . 'Pelicula' ->descuento_pelicula.
 	'Libro' ->descuento_libro.
 	}.
-	data :=SuscripcionComprada createWithSQL:list yFechaInicio:fechaInicio  yFechaFin:fechaFin  deNombre:nameSuscription contenidosComprados:cantidad_productos yPrecio:precio.
+	data :=Suscripcion createWithSQL:list yFechaInicio:fechaInicio  yFechaFin:fechaFin  deNombre:nameSuscription contenidosComprados:cantidad_productos yPrecio:precio.
 	self addSuscription:data.
 	counter :=counter+1.
 	].
@@ -102,9 +102,13 @@ Cliente >> colleccionPago [
 Cliente >> compraContenido:unContenido [
 |unPrecio|
 unPrecio := self obtenerPrecioContenido:unContenido.
-unPrecio == -1 ifFalse:[
-	colPago add:(Pago crearPago:unPrecio deItem:unContenido   ySuscripcion:self getSuscripcionActiva ).
-	self getSuscripcionActiva contenidoComprado.
+(unPrecio == -1) ifFalse:[
+	|suscripcion|
+	suscripcion :=self getSuscripcionActiva.
+	colPago add:(Pago crearPago:unPrecio deItem:unContenido   ySuscripcion:suscripcion).
+	suscripcion esMensual ifTrue:[
+		suscripcion contenidoComprado. 
+		]
 	]
 
 ]
@@ -170,13 +174,11 @@ Cliente >> getNombre [
 
 { #category : #getters }
 Cliente >> getSuscripcionActiva [
-|suscripcion sinDescuento temp|
-sinDescuento :=Dictionary  newFrom:{'Aplicacion'->0.'Pelicula'->0.'Libro'->0}.
-suscripcion :=SuscripcionComprada crearSuscripcion:sinDescuento .
-temp :=suscripcion.
+|temp suscripcion|
+temp :=Item new.
 listaDeSuscripcion isEmpty ifFalse:[
 	suscripcion :=listaDeSuscripcion at:1.
-	suscripcion vigente ifTrue:[temp :=listaDeSuscripcion at:1.].
+	suscripcion vigente ifTrue:[temp :=suscripcion].
 	].
 ^temp.
 ]
@@ -213,18 +215,17 @@ pago isNotEmpty ifTrue:[
 ^data.
 ]
 
-{ #category : #'as yet unclassified' }
-Cliente >> obtenerPrecioContenido:unContenido [
-|precio|
-precio :=-1.
-(self poseeContenido:unContenido )ifFalse:[
-	|suscripcion categoria descuento|
-	suscripcion := self getSuscripcionActiva.
-	categoria := unContenido getIDCategoria.
-	descuento := suscripcion calcularDescuento:categoria.
-	precio := unContenido obtenerPrecio:descuento asNumber.
-	].
-^precio.
+{ #category : #accessing }
+Cliente >> obtenerPrecioContenido: unContenido [
+	| precio |
+	precio := -1.
+	(self poseeContenido: unContenido)
+		ifFalse: [ | suscripcion |
+			suscripcion := self getSuscripcionActiva.
+			precio := suscripcion esMensual
+				ifTrue: [ suscripcion calcularPrecioDescuento: unContenido ]
+				ifFalse: [ unContenido precio ] ].
+	^ precio
 ]
 
 { #category : #'as yet unclassified' }
@@ -236,7 +237,7 @@ Cliente >> pagoContenido:contenido [
 Cliente >> poseeContenido:contenido [
 |flag test|
 flag:=false.
-test:=colPago detect:[:unPago|unPago seCompro:contenido name]ifNone:[nil].
+test:=colPago detect:[:unPago|unPago equals:contenido name]ifNone:[nil].
 test isNotNil ifTrue:[
 	flag :=true.].
 ^flag.

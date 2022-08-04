@@ -37,11 +37,6 @@ fecha :=unaFecha.
 ]
 
 { #category : #accessing }
-Contenido >> seCompro:unNombre [
-^((nombre asString )=(unNombre asString)).
-]
-
-{ #category : #accessing }
 Contenido >> fecha [
 ^fecha asString.
 ]
@@ -79,4 +74,9 @@ valor:=precio asNumber.
 { #category : #accessing }
 Contenido >> precio [
 ^precio.
+]
+
+{ #category : #accessing }
+Contenido >> seCompro:unNombre [
+^((nombre asString )=(unNombre asString)).
 ]
