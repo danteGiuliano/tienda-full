@@ -30,7 +30,7 @@ ModalBuscarCliente >> addTable:aCollection [
 | aNamesColumnTable |
 
 aNamesColumnTable:= #('Tipo' 'Inicio' 'Vence' 'Precio')asOrderedCollection.
-table := Table create: (SuscripcionComprada elements:(aCollection)) aCollums: aNamesColumnTable  aSize:(380@230).
+table := Table create: (Suscripcion elements:(aCollection)) aCollums: aNamesColumnTable  aSize:(380@230).
 
 
 Helper addCenterMorph: table in:self. 
@@ -67,7 +67,7 @@ ModalBuscarCliente >> logic [
 |aClient|
 aClient :=Control modelFuntionReturn:[:h| h getSuscripciones_Compradas:(inputDNI text)asString].
 aClient isNotNil ifTrue:[
-	table updateData:(SuscripcionComprada elements:(aClient getSuscripciones_Compradas)).
+	table updateData:(Suscripcion elements:(aClient getSuscripciones_Compradas)).
 	]
 ]
 

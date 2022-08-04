@@ -43,26 +43,31 @@ self logic.
 
 { #category : #initialization }
 ComponeneteCompraContenido >> logic [
+|valido|
+	valido :=false.
 	search
 		mouseAction: [ cliente := Control
 				modelFuntionReturn: [ :h | h searchDNI: inputDNi text asString ].
 			contenido := Control
 				modelFuntionReturn: [ :h | h searchContenido: inputContenido text asString ].
 			cliente isNotNil & contenido isNotNil
-				ifTrue: [ | data |
+				ifTrue: [ | data precio |
 					data := 'INFORMACION DE CLIENTE ----- \' withCRs.
 					data := data , cliente getData.
 					data := (data , '\ \ INFORMACION DE CONTENIDO-----  \') withCRs.
 					data := data , contenido getData.
-					data := data, ' PRECIO DESCUENTO: ',(cliente obtenerPrecioContenido:contenido)asString.
-					text setText: data ] ].
+					precio:=(cliente obtenerPrecioContenido:contenido).
+					data := data, ' PRECIO DESCUENTO: ', (precio asString).
+					text setText: data .
+					(precio == -1) ifFalse:[valido:=true].
+					] ].
 	comprar
-		mouseAction: [ cliente isNotNil & contenido isNotNil
-				ifTrue: [ DataBase registerCompra_contenido: contenido paraCliente: cliente.
+		mouseAction: [ cliente isNotNil & contenido isNotNil & valido
+				 ifTrue: [ DataBase registerCompra_contenido: contenido paraCliente: cliente.
 					cliente compraContenido: contenido.
 					Control modelFuntion:[:h| h actualizarCliente: cliente].
 					text setText:''.
-					text setText: 'COMPRA CON EXITO ...' ] ]
+					text setText: 'COMPRA CON EXITO ...' ] ifFalse:[text setText:'compra invalida'] ]
 ]
 
 { #category : #initialization }

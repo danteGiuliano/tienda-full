@@ -43,14 +43,6 @@ Control process:69.
 
 ]
 
-{ #category : #updating }
-Tienda class >> createClients:aCollectionClients createSuscriptions:aCollectionSubs aId:aIdirectoty [
-|temp|
-temp :=self new.
-temp initializeClients:aCollectionClients initializeSuscriptions:aCollectionSubs  aId:aIdirectoty.
-^temp.
-]
-
 { #category : #'as yet unclassified' }
 Tienda class >> createTienta:aIdTienda [
 |temp|
@@ -72,11 +64,6 @@ flag :=true.
 		].
 	i:=i+1.	
 	]
-]
-
-{ #category : #'as yet unclassified' }
-Tienda >> addClient:aClient [ 
-colectionClientes add:aClient.
 ]
 
 { #category : #'as yet unclassified' }
@@ -133,7 +120,7 @@ suscripcion := coleccionSuscripciones detect:[:h| h equals: nombre ].
 aux :=suscripcion getPrecio asNumber.
 precio := aux - ((aux * (promo getDescuentoPromocion asNumber))/100 ).
 
-sub :=SuscripcionComprada crearSuscripcion:suscripcion  deNombre:nombre  yPrecio: precio.
+sub :=Suscripcion crearSuscripcion:suscripcion  deNombre:nombre  yPrecio: precio.
 self añadirSuscripcionComprada:sub aCliente:unCliente. 
 
 "DataBase"
@@ -145,7 +132,7 @@ Tienda >> crearWithSQL [
 | clientes  |"Este metodo se encarga de updatear clientes, puesto que debe existir la instancia previamente"
 clientes :=DataBase getClients.
 Control process:60.
-clientes do:[:clientSQL|self addClient:(Cliente createWithSQL:clientSQL)].
+clientes do:[:clientSQL|self addCliente:(Cliente createWithSQL:clientSQL)].
 Control process:70.
 ]
 
