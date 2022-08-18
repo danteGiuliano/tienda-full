@@ -5,6 +5,12 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Item >> esMensual [
-^false.
+Item >> calcularDescuento:unContenido [
+|categoria  unPrecio |
+unPrecio :=-1.
+categoria :=unContenido  getIDCategoria.
+(categoria=='Juego') |(categoria== 'Pelicula') ifFalse:[
+unPrecio :=unContenido precio.
+].
+^unPrecio.
 ]

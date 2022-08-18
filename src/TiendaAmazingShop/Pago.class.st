@@ -53,7 +53,12 @@ Pago >> getItem [
 
 { #category : #'as yet unclassified' }
 Pago >> getSuscripcion [
-^suscripcion .
+|nombre|
+nombre :=suscripcion.
+suscripcion ifNil:[
+	nombre:='Sin suscripcion'
+	].
+^nombre.
 ]
 
 { #category : #'as yet unclassified' }

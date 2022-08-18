@@ -29,8 +29,7 @@ nombre:=data at:2.
 email:=data at:3.
 temp :=self new.
 temp crearColleciones.
-temp añadirListaMySQL:(DataBase getSuscripciones_Compradas:dni) rows.
-temp añadirContenidoMySQL:(DataBase getContenidosComprados:dni)rows.
+temp añadirListaMySQL:((DataBase getSuscripciones_Compradas:dni) rows) aDni:dni.
 ^temp crearConNombre:nombre yDni:dni Email:email. 
 ]
 
@@ -81,6 +80,32 @@ Cliente >> añadirListaMySQL:aMySQLQuery [
 ]
 
 { #category : #'as yet unclassified' }
+Cliente >> añadirListaMySQL:aMySQLQuery aDni:aDni [
+	|counter size|
+	counter :=1.
+	size :=aMySQLQuery size.
+	[counter <= size] whileTrue:[
+	|data list  nameSuscription descuento_aplicacion descuento_pelicula descuento_libro fechaInicio fechaFin cantidad_productos precio|
+	data :=(aMySQLQuery at:counter) columns.
+	nameSuscription:=data at:1.
+	descuento_aplicacion :=data at:2.
+	descuento_pelicula :=data at:3.
+	descuento_libro :=data at:4.
+	fechaInicio:=data at:5.
+	fechaFin :=data at:6.
+	cantidad_productos := data at:8.
+	precio :=data at:9.
+	list :=Dictionary newFrom:{'Aplicacion' ->descuento_aplicacion . 'Pelicula' ->descuento_pelicula.
+	'Libro' ->descuento_libro.
+	}.
+	data :=Suscripcion createWithSQL:list yFechaInicio:fechaInicio  yFechaFin:fechaFin  deNombre:nameSuscription contenidosComprados:cantidad_productos yPrecio:precio.
+	data añadirPagoMySQL:((DataBase getContenidosComprados:aDni)rows).
+	self addSuscription:data.
+	counter :=counter+1.
+	].
+]
+
+{ #category : #'as yet unclassified' }
 Cliente >> añadirPromocion:unaPromocion [
 (listaDeSuscripcion at:1)añadirPromocion:unaPromocion.
 ]
@@ -95,7 +120,10 @@ column id= 'email' ifTrue: [ ^self emailRow:rowIndex ].
 
 { #category : #'as yet unclassified' }
 Cliente >> colleccionPago [
-^colPago.
+|pagos|
+pagos:=OrderedCollection new.
+listaDeSuscripcion do:[:suscripcion| pagos:= pagos|suscripcion getPagos].
+^pagos.
 ]
 
 { #category : #'as yet unclassified' }
@@ -122,7 +150,6 @@ listaDeSuscripcion add:unaSuscripcion.
 { #category : #'as yet unclassified' }
 Cliente >> crearColleciones [
 listaDeSuscripcion :=SortedCollection sortBlock:[:f1 :f2 |f1 mayor:f2].
-colPago :=OrderedCollection new.
 "listaDeSuscripcion add: SuscripcionComprada crearSuscripcionNoActiva."
 ]
 
@@ -203,11 +230,31 @@ Cliente >> newDataSourceMatching: aFTFilter [
 	^ self class new elements: newElements.
 ]
 
+{ #category : #'as yet unclassified' }
+Cliente >> obtenerContenido:keyName [
+|i flag data|
+data := nil.
+flag := true.
+i :=1.
+[i <= listaDeSuscripcion size & flag & listaDeSuscripcion isNotEmpty] whileTrue:[
+	|unaSuscripcion|
+	unaSuscripcion :=listaDeSuscripcion at:i.
+	data :=unaSuscripcion obtenerPago:keyName.
+	data isEmpty ifTrue:[
+		data :=nil.
+		]ifFalse:[
+		flag:=false.
+		].
+	i:=i+1
+	].
+^ data.
+]
+
 { #category : #gettersVisual }
 Cliente >> obtenerDataCompra:keyName [
 | pago data|
-data :=nil.
-pago :=(colPago select:[:unPago| unPago equals:keyName.]).
+data :='Sin suscripcion'.
+pago :=self obtenerContenido:keyName.
 pago isNotEmpty ifTrue:[
 	pago:=pago at:1.
 	data:=DataCompra crearData:nombre  enFecha:pago getFecha  yTipo:pago getSuscripcion.
@@ -222,10 +269,8 @@ Cliente >> obtenerPrecioContenido: unContenido [
 	(self poseeContenido: unContenido)
 		ifFalse: [ | suscripcion |
 			suscripcion := self getSuscripcionActiva.
-			precio := suscripcion esMensual
-				ifTrue: [ suscripcion calcularPrecioDescuento: unContenido ]
-				ifFalse: [ unContenido precio ] ].
-	^ precio
+			precio := suscripcion calcularPrecio: unContenido].
+	^ precio 
 ]
 
 { #category : #'as yet unclassified' }
@@ -237,7 +282,7 @@ Cliente >> pagoContenido:contenido [
 Cliente >> poseeContenido:contenido [
 |flag test|
 flag:=false.
-test:=colPago detect:[:unPago|unPago equals:contenido name]ifNone:[nil].
+test:=listaDeSuscripcion detect:[:unaSuscripcion|unaSuscripcion seCompro:contenido]ifNone:[nil].
 test isNotNil ifTrue:[
 	flag :=true.].
 ^flag.

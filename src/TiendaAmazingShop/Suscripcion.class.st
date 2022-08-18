@@ -5,19 +5,11 @@ Class {
 		'fechaInicio',
 		'fechaFin',
 		'nombreSuscripcion',
-		'precio'
+		'precio',
+		'coleccionPagos'
 	],
 	#category : #'TiendaAmazingShop-model'
 }
-
-{ #category : #'as yet unclassified' }
-Suscripcion class >> crearSuscripcion:unaListaDescuentos [ 
-|temp|
-temp :=self new.
-temp añadirLista:unaListaDescuentos.
-temp compraContenidos.
-^temp.
-]
 
 { #category : #'as yet unclassified' }
 Suscripcion class >> crearSuscripcion:unaListaDescuentos deNombre:unNombre [
@@ -42,15 +34,6 @@ temp nombreSuscripcion: unNombre.
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion class >> crearSuscripcionNoActiva [ 
-|temp|
-temp :=self new.
-temp sinSuscripcionActiva.
-temp compraContenidos.
-^temp.
-]
-
-{ #category : #'as yet unclassified' }
 Suscripcion class >> createWithSQL:unaListaDescuentos yFechaInicio:unaFechaInicio yFechaFin:unaFechaFin deNombre:unNombre
 contenidosComprados:cantidad yPrecio:unPrecio [
 |temp|
@@ -65,6 +48,19 @@ fechaInicio :=unaFechaInicio.
 fechaFin :=unaFechaFin.
 nombreSuscripcion :=unNombre.
 precio:=unPrecio.
+self crearColleciones.
+]
+
+{ #category : #dataTable }
+Suscripcion >> añadirPagoMySQL:aMySQLQuery [
+	aMySQLQuery
+		do: [ :instanceKey | 
+			|  contenido|
+			contenido := Control
+				modelFuntionReturn: [ :h | h searchContenido: (instanceKey at: 4) ].
+				coleccionPagos 
+				 add:(Pago createWithMySQL:instanceKey).
+				]
 ]
 
 { #category : #dataTable }
@@ -76,8 +72,8 @@ column id= 'Precio' ifTrue: [ ^self precioRow:rowIndex ].
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> esMensual [
-^self subclassResponsibility 
+Suscripcion >> crearColleciones [
+coleccionPagos := OrderedCollection new.
 ]
 
 { #category : #'as yet unclassified' }
@@ -91,13 +87,23 @@ Suscripcion >> getInicio [
 ]
 
 { #category : #'as yet unclassified' }
+Suscripcion >> getPagos [ 
+^coleccionPagos.
+]
+
+{ #category : #'as yet unclassified' }
 Suscripcion >> getPrecio [
 ^precio asString
 ]
 
 { #category : #dataTable }
 Suscripcion >> getTipo [
-^nombreSuscripcion asString.
+|nombre|
+nombre :=nombreSuscripcion.
+nombreSuscripcion ifNil:[
+	nombre:='Sin suscripcion'.
+	].
+^nombre.
 ]
 
 { #category : #dataTable }
@@ -136,6 +142,23 @@ nombreSuscripcion :=unNombre
 ]
 
 { #category : #'as yet unclassified' }
+Suscripcion >> obtenerDataCompra:keyName cliente:nombre [
+| pago data|
+data :=nil.
+pago :=(coleccionPagos select:[:unPago| unPago equals:keyName.]).
+pago isNotEmpty ifTrue:[
+	pago:=pago at:1.
+	data:=DataCompra crearData:nombre  enFecha:pago getFecha  yTipo:pago getSuscripcion.
+	].
+^data.
+]
+
+{ #category : #'as yet unclassified' }
+Suscripcion >> obtenerPago:aKeyName [
+^coleccionPagos select:[:pago|pago equals:aKeyName]
+]
+
+{ #category : #'as yet unclassified' }
 Suscripcion >> precio:unPrecio [
 precio :=unPrecio
 
@@ -146,6 +169,16 @@ Suscripcion >> precioRow: rowIndex [
 ^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getPrecio asStringMorph;
 		yourself
+]
+
+{ #category : #'as yet unclassified' }
+Suscripcion >> seCompro:unContenido [
+|flag test|
+flag:=false.
+test:=coleccionPagos  detect:[:unPago|unPago equals:unContenido  name]ifNone:[nil].
+test isNotNil ifTrue:[
+	flag :=true.].
+^flag.
 ]
 
 { #category : #dataTable }
