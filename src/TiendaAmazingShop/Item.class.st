@@ -14,3 +14,8 @@ unPrecio :=unContenido precio.
 ].
 ^unPrecio.
 ]
+
+{ #category : #'as yet unclassified' }
+Item >> existeContenido:unContenido [
+^coleccionPagos detect:[:unPago|unPago equals:unContenido name]ifNone:[nil]
+]

@@ -52,6 +52,11 @@ self crearColleciones.
 ]
 
 { #category : #dataTable }
+Suscripcion >> añadirPago:unPago [
+coleccionPagos add:unPago.
+]
+
+{ #category : #dataTable }
 Suscripcion >> añadirPagoMySQL:aMySQLQuery [
 	aMySQLQuery
 		do: [ :instanceKey | 
@@ -156,6 +161,11 @@ pago isNotEmpty ifTrue:[
 { #category : #'as yet unclassified' }
 Suscripcion >> obtenerPago:aKeyName [
 ^coleccionPagos select:[:pago|pago equals:aKeyName]
+]
+
+{ #category : #'as yet unclassified' }
+Suscripcion >> pagoEnFecha:unaFecha [ 
+^(fechaInicio >=unaFecha) & (unaFecha <=fechaFin).
 ]
 
 { #category : #'as yet unclassified' }

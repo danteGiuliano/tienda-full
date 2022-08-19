@@ -42,6 +42,11 @@ Pago >> equals:unContenido [
 ]
 
 { #category : #'as yet unclassified' }
+Pago >> fecha [
+^fechaPago
+]
+
+{ #category : #'as yet unclassified' }
 Pago >> getFecha [
 ^fechaPago asString.
 ]
@@ -55,10 +60,15 @@ Pago >> getItem [
 Pago >> getSuscripcion [
 |nombre|
 nombre :=suscripcion.
-suscripcion ifNil:[
+suscripcion ='nil' ifTrue:[
 	nombre:='Sin suscripcion'
 	].
 ^nombre.
+]
+
+{ #category : #'as yet unclassified' }
+Pago >> pagoSinSuscripcion [
+^suscripcion = 'nil'.
 ]
 
 { #category : #'as yet unclassified' }
