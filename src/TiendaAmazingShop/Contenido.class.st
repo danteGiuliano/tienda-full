@@ -57,6 +57,11 @@ Contenido >> name [
 ]
 
 { #category : #'as yet unclassified' }
+Contenido >> necesitaComprobante [
+^self subclassResponsibility
+]
+
+{ #category : #'as yet unclassified' }
 Contenido >> nombreContenido:unNombre yPrecio:unPrecio [
 nombre :=unNombre.
 precio :=unPrecio.

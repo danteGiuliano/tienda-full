@@ -3,3 +3,8 @@ Class {
 	#superclass : #Contenido,
 	#category : #'TiendaAmazingShop-model'
 }
+
+{ #category : #'as yet unclassified' }
+Libro >> necesitaComprobante [ 
+^true.
+]

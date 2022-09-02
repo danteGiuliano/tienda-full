@@ -5,7 +5,6 @@ Class {
 		'fechaInicio',
 		'fechaFin',
 		'nombreSuscripcion',
-		'precio',
 		'coleccionPagos'
 	],
 	#category : #'TiendaAmazingShop-model'
@@ -16,7 +15,6 @@ Suscripcion class >> crearSuscripcion:unaListaDescuentos deNombre:unNombre [
 |temp|
 temp :=self new.
 temp añadirLista:unaListaDescuentos.
-temp compraContenidos.
 temp precio:unaListaDescuentos getPrecio.
 temp nombreSuscripcion: unNombre.
 ^temp.
@@ -47,20 +45,22 @@ Suscripcion >> añadirListaMySQL:unaLista yFechaInicio:unaFechaInicio yFechaFIN:
 fechaInicio :=unaFechaInicio.
 fechaFin :=unaFechaFin.
 nombreSuscripcion :=unNombre.
-precio:=unPrecio.
 self crearColleciones.
 ]
 
 { #category : #dataTable }
-Suscripcion >> añadirPagoMySQL:aMySQLQuery [
-	aMySQLQuery
-		do: [ :instanceKey | 
-			|  contenido|
-			contenido := Control
-				modelFuntionReturn: [ :h | h searchContenido: (instanceKey at: 4) ].
-				coleccionPagos 
-				 add:(Pago createWithMySQL:instanceKey).
-				]
+Suscripcion >> añadirPago:unPago [
+coleccionPagos add:unPago.
+]
+
+{ #category : #dataTable }
+Suscripcion >> añadirPagoMyQL:unPago [
+coleccionPagos add:unPago.
+]
+
+{ #category : #dataTable }
+Suscripcion >> añadirPagoMySQL:unPago [
+coleccionPagos add:unPago.
 ]
 
 { #category : #dataTable }
@@ -76,6 +76,11 @@ Suscripcion >> crearColleciones [
 coleccionPagos := OrderedCollection new.
 ]
 
+{ #category : #comparing }
+Suscripcion >> equals:unNombre [
+^nombreSuscripcion = unNombre
+]
+
 { #category : #'as yet unclassified' }
 Suscripcion >> getFechaInicio [
 ^fechaInicio .
@@ -83,17 +88,12 @@ Suscripcion >> getFechaInicio [
 
 { #category : #dataTable }
 Suscripcion >> getInicio [
-^fechaInicio asString.
+^fechaInicio yyyymmdd  asString.
 ]
 
 { #category : #'as yet unclassified' }
 Suscripcion >> getPagos [ 
 ^coleccionPagos.
-]
-
-{ #category : #'as yet unclassified' }
-Suscripcion >> getPrecio [
-^precio asString
 ]
 
 { #category : #dataTable }
@@ -116,6 +116,12 @@ Suscripcion >> inicioRow:rowIndex [
 ^ FTCellMorph new  
 		addMorphBack:((self elementAt: rowIndex) getInicio asStringMorph color:(Color green));
 		yourself
+]
+
+{ #category : #initialization }
+Suscripcion >> initialize [ 
+super initialize.
+self crearColleciones.
 ]
 
 { #category : #dataTable }
@@ -159,9 +165,8 @@ Suscripcion >> obtenerPago:aKeyName [
 ]
 
 { #category : #'as yet unclassified' }
-Suscripcion >> precio:unPrecio [
-precio :=unPrecio
-
+Suscripcion >> pagoEnFecha:unaFecha [ 
+^(fechaInicio <=unaFecha) & (unaFecha <=fechaFin).
 ]
 
 { #category : #dataTable }
@@ -169,6 +174,11 @@ Suscripcion >> precioRow: rowIndex [
 ^ FTCellMorph new  
 		addMorphBack: (self elementAt: rowIndex) getPrecio asStringMorph;
 		yourself
+]
+
+{ #category : #'as yet unclassified' }
+Suscripcion >> promocionAplicable:unaCantidad [ 
+^false.
 ]
 
 { #category : #'as yet unclassified' }

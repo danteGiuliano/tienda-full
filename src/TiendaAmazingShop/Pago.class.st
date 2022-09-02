@@ -42,6 +42,11 @@ Pago >> equals:unContenido [
 ]
 
 { #category : #'as yet unclassified' }
+Pago >> fecha [
+^fechaPago
+]
+
+{ #category : #'as yet unclassified' }
 Pago >> getFecha [
 ^fechaPago asString.
 ]
@@ -59,6 +64,11 @@ suscripcion ifNil:[
 	nombre:='Sin suscripcion'
 	].
 ^nombre.
+]
+
+{ #category : #dataTable }
+Pago >> getTipo [
+^suscripcion.
 ]
 
 { #category : #'as yet unclassified' }

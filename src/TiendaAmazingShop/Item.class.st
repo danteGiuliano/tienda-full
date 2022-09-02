@@ -5,12 +5,10 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-Item >> calcularDescuento:unContenido [
-|categoria  unPrecio |
+Item >> calcularPrecio:unContenido [
+|unPrecio categoria|
 unPrecio :=-1.
-categoria :=unContenido  getIDCategoria.
-(categoria=='Juego') |(categoria== 'Pelicula') ifFalse:[
-unPrecio :=unContenido precio.
-].
+categoria :=unContenido getIDCategoria.
+((categoria ='Pelicula') not) & ((categoria='Juego') not) ifTrue:[unPrecio :=unContenido precio].
 ^unPrecio.
 ]
